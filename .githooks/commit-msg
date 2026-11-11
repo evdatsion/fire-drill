@@ -1,0 +1,4 @@
+#!/bin/sh
+if grep -qiE '(co-authored-by:.*(claude|anthropic|glm|zhipu|z\.ai|openai|copilot|cursor))|(generated (with|by).*(claude|glm|ai\b|zcode))' "$1"; then
+  echo "commit-msg: AI attribution line found; remove it." >&2; exit 1
+fi
