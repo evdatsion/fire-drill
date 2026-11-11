@@ -63,11 +63,17 @@ Design consequences:
 | 2026-11-11 | CI fetches the official kit zip (0.7.3-en) from the starter-kit page at a pinned URL instead of committing the kit. | The kit must not be redistributed; the pinned download was verified byte-identical to the local copy. |
 | 2026-11-12 | The README states the Open Innovation track; the owner draft said "Explore Your Imagination". | The Devpost page lists four tracks and Open Innovation is one of them; no track by the draft's name exists (checked Nov 12, 2026). |
 | 2026-11-12 | Source links added for the Macrium 2017 survey and the Feb 7, 2026 photo-deletion incident. | Both verified: Macrium blog, March 9, 2017 (46% have never completed a test restore); Futurism report, Feb 13, 2026, on the Feb 7 desktop-tidying deletion of about 15,000 family photos. |
+| 2026-11-12 | Silent-stop rule refined: rhythm is the median gap among the arrivals preceding the newest file; fewer than 3 gaps means "insufficient evidence" and no flag; the rule runs on device-backup folders only (scope mapping), not archives. | The earlier 12-week window missed stops longer than the window (a 90-day gap left nothing to measure) and guessed at folders too small to have a rhythm; the owner diagram in docs/DIAGRAMS.md section 4 already shows the insufficient-history branch. |
+| 2026-11-12 | Single-copy counts device originals, as recorded in the scope mapping, plus matches in other scoped folders. | Counting scoped folders alone flags every one-folder case: a phone backup whose originals are on the phone would grade D, and the spec's section 10 pack requires healthy folders to go unflagged. |
+| 2026-11-12 | When a ransomware tell fires, failed open tests report under the warning instead of as broken uploads. | Renamed files fail the open test; without the rule the three ransom cases would also carry the broken-file flag their expected results forbid. |
+| 2026-11-12 | The open-fail spike tell requires at least 100 files in the folder. | On smaller folders the 25 percent rate is noise: one failed file out of three would fire the tell. |
+| 2026-11-12 | Drill Pack fixtures upgraded to generator-grade: scope (role, device, originals), coherent history blocks, and burst blocks replace the Night 1 narrative numbers. | The narrative numbers did not cohere (six weeks of about 40 files a week cannot end 74 days ago inside a 12-week window); the simulator needs exact, self-consistent inputs. |
+| 2026-11-12 | Identical synthetic content is declared with an explicit contentId per file. | Hashing path and size made cross-folder duplicate detection impossible; contentId models what the expert hash result means. |
 
 ## Known gaps
 
-- The Drill Pack is a design tonight: expected results only, no simulator yet. Night 2 adds the simulator that generates the folders and scores reports against this file.
-- Nothing has run on a NAS. The static checker proves the package shape, not device behaviour.
+- The simulator models the UGOS expert outputs from the fixture declarations: a file's declared state decides its open-test verdict and its kind decides its tier. On a NAS those verdicts come from the vision, OCR and document actions, which the simulator does not call.
+- The bench ran on the simulator, on a laptop. Nothing has run on a NAS; the static checker proves the package shape, not device behaviour.
 - Sample-based by design: pass rates describe the opened sample; the report always says so.
 - No recycle-bin listing and no snapshot access in the kit, so vanished files can be pointed at recovery routes only when they exist.
 - No scheduler in the kit, so recurrence depends on the user and the "next drill due" line.

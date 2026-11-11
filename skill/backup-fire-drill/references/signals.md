@@ -4,16 +4,18 @@ Every flag in the report comes from a written rule here. The experts gather numb
 
 ## Silent-stop rule
 
-Purpose: catch a backup that quietly stopped, without punishing folders that only get occasional files.
+Purpose: catch a backup that quietly stopped, without punishing folders that only get occasional files or that are static archives.
 
-For each scoped folder:
+The rule runs on folders recorded as device backups in the scope mapping (the drill asks which folders are backups, whose they are, and whether the originals still live on the device). Archive folders are static by nature: the card says "archive folder: stop check not applicable" instead of a flag.
+
+For each device-backup folder:
 
 - gap = days since the newest file inside the folder, by modification time.
-- arrivals = the gaps in days between consecutive new files over the last 12 weeks, by modification time.
-- rhythm = the median of arrivals when there are at least 3 arrivals in the window; otherwise rhythm = 90 days (occasional folder).
+- rhythm = the median of the gaps between the 12 arrivals that precede that newest file, when at least 3 such gaps exist.
+- With fewer than 3 gaps the folder's rhythm is unknown: the verdict is "insufficient evidence", the folder is not flagged, and the report says so plainly.
 - Flag "silent-stop" when gap >= max(3 x rhythm, 14 days).
 
-The report states both numbers, for example: "used to add about 40 photos a week; the newest file is 74 days old." A folder with a 40-day gap and a 90-day rhythm is not flagged; a folder with a 74-day gap and a 7-day rhythm is.
+The report states the cadence and the gap as the receipt, for example: "used to add about 40 photos a week; the newest file is 74 days old." A folder with a 40-day gap and a 90-day rhythm is not flagged; a folder with a 74-day gap and a weekly rhythm is.
 
 ## Open-test verdicts
 
@@ -32,8 +34,8 @@ The sample pass rate counts "opens with real content" against the attempted samp
 
 Applies to tier 1 files only (see references/tiers-and-sampling.md):
 
-1. Hash the tier 1 files across every scoped folder.
-2. A file with no equal-content match in any other scoped folder has one copy.
+1. Count every copy a tier 1 file has: equal-content matches in the other scoped folders (hashes plus the dedupe scan) and the originals on its source device, as recorded in the scope mapping.
+2. A file whose total copy count is one exists in a single copy.
 3. Report the count of single-copy files, their total size, and a bounded path list (at most 20 paths, then "and N more").
 
 Identical content under a different name or folder still counts as a copy. The rule ignores tier 2 and tier 3 on purpose: a screenshots folder must never be graded as "irreplaceable at risk".
@@ -48,7 +50,7 @@ Any one of these triggers the urgent warning at the top of the report: "stop syn
 | Mass change | At least 100 files modified inside one 60-minute window. |
 | Open-fail spike | At least 25% of the newest 100 files fail the open test while the older sample mostly passes. |
 
-The tell is a warning, not a detection guarantee. The report says what was observed, with counts and window, and tells the user what to do first.
+The tell is a warning, not a detection guarantee. The report says what was observed, with counts and window, and tells the user what to do first. When a tell fires, failed open tests belong to the warning: they are reported under it instead of as broken or partial uploads.
 
 ## Vanish rule
 
@@ -62,7 +64,7 @@ Recovery routes are named only when they exist on this NAS: the recycle bin, if 
 
 | Signal | Threshold |
 |---|---|
-| Silent stop | gap >= max(3 x rhythm, 14 days) |
+| Silent stop | gap >= max(3 x rhythm, 14 days), device-backup folders with a known rhythm |
 | Sample sizes | 30 tier 1, 20 tier 2, 10 tier 3 per source |
 | Rename burst | 0 in history, then >= 20 files in 48 h |
 | Mass change | >= 100 files in 60 min |
