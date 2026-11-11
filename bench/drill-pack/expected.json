@@ -1,0 +1,503 @@
+{
+  "pack": "drill-pack",
+  "version": "1.0.0",
+  "updatedAt": "2026-11-11",
+  "description": "Design of the 20-case Drill Pack from the spec (section 10, rule 2): 4 stopped backups on different rhythms, 5 broken files, 4 single-copy family photo sets, 3 ransomware-style rename bursts, and 4 healthy controls that must not be flagged. Synthetic data only. The Night 2 simulator turns each fixture into a folder tree and scores its report against expected.",
+  "scoring": {
+    "target": "at least 18 of 20 cases scored as expected",
+    "healthyFlaggedAllowed": 0,
+    "note": "the real score is reported on finalist day; until then this is a target, not a result"
+  },
+  "families": {
+    "stopped-backup": 4,
+    "broken-file": 5,
+    "single-copy": 4,
+    "ransomware-burst": 3,
+    "healthy": 4
+  },
+  "cases": [
+    {
+      "id": "stopped-01",
+      "family": "stopped-backup",
+      "name": "Mom-iPhone",
+      "owner": "Mom",
+      "summary": "Phone camera-roll sync added about 40 photos a week, then nothing for 74 days.",
+      "fixture": {
+        "folders": ["Mom-iPhone"],
+        "files": [
+          { "path": "Mom-iPhone/2026-05/IMG_0141.jpg", "kind": "photo-people", "sizeBytes": 410000, "mtimeDaysAgo": 160 },
+          { "path": "Mom-iPhone/2026-06/IMG_0188.jpg", "kind": "photo-people", "sizeBytes": 395000, "mtimeDaysAgo": 130 },
+          { "path": "Mom-iPhone/2026-07/IMG_0251.jpg", "kind": "photo-people", "sizeBytes": 402000, "mtimeDaysAgo": 100 },
+          { "path": "Mom-iPhone/2026-08/IMG_0312.jpg", "kind": "photo-people", "sizeBytes": 410000, "mtimeDaysAgo": 74 },
+          { "path": "Mom-iPhone/2026-08/IMG_0313.jpg", "kind": "photo-people", "sizeBytes": 398000, "mtimeDaysAgo": 74 }
+        ],
+        "arrival": { "weeklyCounts12": [41, 44, 39, 42, 40, 43, 0, 0, 0, 0, 0, 0], "newestFileGapDays": 74, "medianArrivalGapDays": 7 }
+      },
+      "expected": {
+        "flagged": true,
+        "flags": ["silent-stop"],
+        "grade": "C",
+        "silentStop": { "newestFileGapDays": 74, "rhythmDays": 7 },
+        "reportMustContain": ["74 days", "Background App Refresh"],
+        "mustNotFlag": ["broken-file", "single-copy", "ransomware-tell", "vanished"]
+      }
+    },
+    {
+      "id": "stopped-02",
+      "family": "stopped-backup",
+      "name": "Dad-Laptop",
+      "owner": "Dad",
+      "summary": "Laptop document copy brought 2 or 3 files a week, then nothing for 90 days.",
+      "fixture": {
+        "folders": ["Dad-Laptop"],
+        "files": [
+          { "path": "Dad-Laptop/invoices/2026-03/inv_0041.pdf", "kind": "document", "sizeBytes": 88000, "mtimeDaysAgo": 180 },
+          { "path": "Dad-Laptop/invoices/2026-04/inv_0057.pdf", "kind": "document", "sizeBytes": 91000, "mtimeDaysAgo": 150 },
+          { "path": "Dad-Laptop/notes/q1-review.docx", "kind": "document", "sizeBytes": 64000, "mtimeDaysAgo": 120 },
+          { "path": "Dad-Laptop/invoices/2026-07/inv_0102.pdf", "kind": "document", "sizeBytes": 87000, "mtimeDaysAgo": 90 }
+        ],
+        "arrival": { "weeklyCounts12": [3, 2, 1, 2, 3, 2, 1, 2, 0, 0, 0, 0], "newestFileGapDays": 90, "medianArrivalGapDays": 4 }
+      },
+      "expected": {
+        "flagged": true,
+        "flags": ["silent-stop"],
+        "grade": "C",
+        "silentStop": { "newestFileGapDays": 90, "rhythmDays": 4 },
+        "reportMustContain": ["90 days", "copy job has not run"],
+        "mustNotFlag": ["broken-file", "single-copy", "ransomware-tell", "vanished"]
+      }
+    },
+    {
+      "id": "stopped-03",
+      "family": "stopped-backup",
+      "name": "Projects-Share",
+      "owner": "Dad",
+      "summary": "Monthly project uploads, then nothing for 150 days; an occasional folder is still a stopped one after five missed months.",
+      "fixture": {
+        "folders": ["Projects-Share"],
+        "files": [
+          { "path": "Projects-Share/2026-01/plan-v2.pdf", "kind": "document", "sizeBytes": 120000, "mtimeDaysAgo": 300 },
+          { "path": "Projects-Share/2026-03/plan-v3.pdf", "kind": "document", "sizeBytes": 125000, "mtimeDaysAgo": 240 },
+          { "path": "Projects-Share/2026-05/plan-v4.pdf", "kind": "document", "sizeBytes": 131000, "mtimeDaysAgo": 180 },
+          { "path": "Projects-Share/2026-06/budget.xlsx", "kind": "document", "sizeBytes": 45000, "mtimeDaysAgo": 150 }
+        ],
+        "arrival": { "weeklyCounts12": [1, 0, 0, 1, 0, 0, 1, 0, 0, 0, 0, 0], "newestFileGapDays": 150, "medianArrivalGapDays": 30 }
+      },
+      "expected": {
+        "flagged": true,
+        "flags": ["silent-stop"],
+        "grade": "C",
+        "silentStop": { "newestFileGapDays": 150, "rhythmDays": 30 },
+        "reportMustContain": ["150 days"],
+        "mustNotFlag": ["broken-file", "single-copy", "ransomware-tell", "vanished"]
+      }
+    },
+    {
+      "id": "stopped-04",
+      "family": "stopped-backup",
+      "name": "Cam-Footage",
+      "owner": "Home",
+      "summary": "Security camera wrote clips every day, then stopped 21 days ago; a daily rhythm cannot hide a three-week gap.",
+      "fixture": {
+        "folders": ["Cam-Footage"],
+        "files": [
+          { "path": "Cam-Footage/2026-10-15/front_1015.mp4", "kind": "video", "sizeBytes": 52000000, "mtimeDaysAgo": 27 },
+          { "path": "Cam-Footage/2026-10-18/front_1018.mp4", "kind": "video", "sizeBytes": 54000000, "mtimeDaysAgo": 24 },
+          { "path": "Cam-Footage/2026-10-21/front_1021.mp4", "kind": "video", "sizeBytes": 51000000, "mtimeDaysAgo": 21 }
+        ],
+        "arrival": { "weeklyCounts12": [210, 198, 205, 0, 0, 0, 0, 0, 0, 0, 0, 0], "newestFileGapDays": 21, "medianArrivalGapDays": 1 }
+      },
+      "expected": {
+        "flagged": true,
+        "flags": ["silent-stop"],
+        "grade": "C",
+        "silentStop": { "newestFileGapDays": 21, "rhythmDays": 1 },
+        "reportMustContain": ["21 days"],
+        "mustNotFlag": ["broken-file", "single-copy", "ransomware-tell", "vanished"]
+      }
+    },
+    {
+      "id": "broken-01",
+      "family": "broken-file",
+      "name": "Dad-Laptop-Photos",
+      "owner": "Dad",
+      "summary": "One truncated JPG in a sampled photo folder fails the open test while healthy neighbours pass.",
+      "fixture": {
+        "folders": ["Dad-Laptop-Photos"],
+        "files": [
+          { "path": "Dad-Laptop-Photos/2019/IMG_20190816_0041.jpg", "kind": "photo-people", "sizeBytes": 3800000, "mtimeDaysAgo": 2600 },
+          { "path": "Dad-Laptop-Photos/2019/IMG_20190817_0042.jpg", "kind": "photo-people", "sizeBytes": 1550000, "mtimeDaysAgo": 2600, "problem": "truncated-jpg: transfer cut at 40 percent, decoder hits end of data" },
+          { "path": "Dad-Laptop-Photos/2019/IMG_20190817_0043.jpg", "kind": "photo-people", "sizeBytes": 3700000, "mtimeDaysAgo": 2600 }
+        ],
+        "arrival": { "weeklyCounts12": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], "newestFileGapDays": 2600, "medianArrivalGapDays": 90 }
+      },
+      "expected": {
+        "flagged": true,
+        "flags": ["broken-file"],
+        "grade": "B",
+        "broken": { "paths": ["Dad-Laptop-Photos/2019/IMG_20190817_0042.jpg"], "verdict": "fails-to-open" },
+        "reportMustContain": ["IMG_20190817_0042.jpg", "re-upload"],
+        "mustNotFlag": ["silent-stop", "single-copy", "ransomware-tell", "vanished"]
+      }
+    },
+    {
+      "id": "broken-02",
+      "family": "broken-file",
+      "name": "Dad-Laptop-Docs",
+      "owner": "Dad",
+      "summary": "A zero-byte PDF from an interrupted upload cannot be read at all.",
+      "fixture": {
+        "folders": ["Dad-Laptop-Docs"],
+        "files": [
+          { "path": "Dad-Laptop-Docs/manuals/boiler_manual.pdf", "kind": "document", "sizeBytes": 2100000, "mtimeDaysAgo": 400 },
+          { "path": "Dad-Laptop-Docs/manuals/warranty_scan.pdf", "kind": "document", "sizeBytes": 0, "mtimeDaysAgo": 380, "problem": "zero-byte-pdf: upload interrupted before any byte was written" },
+          { "path": "Dad-Laptop-Docs/manuals/tax_2025.pdf", "kind": "document", "sizeBytes": 940000, "mtimeDaysAgo": 370 }
+        ],
+        "arrival": { "weeklyCounts12": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], "newestFileGapDays": 370, "medianArrivalGapDays": 90 }
+      },
+      "expected": {
+        "flagged": true,
+        "flags": ["broken-file"],
+        "grade": "B",
+        "broken": { "paths": ["Dad-Laptop-Docs/manuals/warranty_scan.pdf"], "verdict": "fails-to-open" },
+        "reportMustContain": ["warranty_scan.pdf", "0 bytes"],
+        "mustNotFlag": ["silent-stop", "single-copy", "ransomware-tell", "vanished"]
+      }
+    },
+    {
+      "id": "broken-03",
+      "family": "broken-file",
+      "name": "Kid-Tablet-Downloads",
+      "owner": "Kid",
+      "summary": "A plain text download was renamed to .jpg on the tablet; the extension lies and the open test catches it.",
+      "fixture": {
+        "folders": ["Kid-Tablet-Downloads"],
+        "files": [
+          { "path": "Kid-Tablet-Downloads/holiday_list.jpg", "kind": "photo-other", "sizeBytes": 2100, "mtimeDaysAgo": 60, "problem": "renamed-non-image: content is plain text, extension says image" },
+          { "path": "Kid-Tablet-Downloads/cartoon_poster.png", "kind": "photo-other", "sizeBytes": 860000, "mtimeDaysAgo": 58 },
+          { "path": "Kid-Tablet-Downloads/game_screenshot.jpg", "kind": "screenshot", "sizeBytes": 990000, "mtimeDaysAgo": 55 }
+        ],
+        "arrival": { "weeklyCounts12": [4, 6, 5, 3, 6, 4, 5, 6, 4, 5, 6, 4], "newestFileGapDays": 55, "medianArrivalGapDays": 1 }
+      },
+      "expected": {
+        "flagged": true,
+        "flags": ["broken-file"],
+        "grade": "B",
+        "broken": { "paths": ["Kid-Tablet-Downloads/holiday_list.jpg"], "verdict": "fails-to-open" },
+        "reportMustContain": ["holiday_list.jpg"],
+        "mustNotFlag": ["silent-stop", "single-copy", "ransomware-tell", "vanished"]
+      }
+    },
+    {
+      "id": "broken-04",
+      "family": "broken-file",
+      "name": "Old-Photos",
+      "owner": "Mom",
+      "summary": "A corrupted HEIC keeps its header but the body is garbage; it must fail, not pass silently.",
+      "fixture": {
+        "folders": ["Old-Photos"],
+        "files": [
+          { "path": "Old-Photos/2021/IMG_0006.heic", "kind": "photo-people", "sizeBytes": 2700000, "mtimeDaysAgo": 1800 },
+          { "path": "Old-Photos/2021/IMG_0007.heic", "kind": "photo-people", "sizeBytes": 2900000, "mtimeDaysAgo": 1800, "problem": "corrupted-heic: valid header, body overwritten by random bytes" },
+          { "path": "Old-Photos/2021/IMG_0008.heic", "kind": "photo-people", "sizeBytes": 2800000, "mtimeDaysAgo": 1800 }
+        ],
+        "arrival": { "weeklyCounts12": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], "newestFileGapDays": 1800, "medianArrivalGapDays": 90 }
+      },
+      "expected": {
+        "flagged": true,
+        "flags": ["broken-file"],
+        "grade": "B",
+        "broken": { "paths": ["Old-Photos/2021/IMG_0007.heic"], "verdict": "fails-to-open" },
+        "reportMustContain": ["IMG_0007.heic"],
+        "mustNotFlag": ["silent-stop", "single-copy", "ransomware-tell", "vanished"]
+      }
+    },
+    {
+      "id": "broken-05",
+      "family": "broken-file",
+      "name": "Shared-Videos",
+      "owner": "Family",
+      "summary": "A half-written MP4 without its index atom cannot be played back.",
+      "fixture": {
+        "folders": ["Shared-Videos"],
+        "files": [
+          { "path": "Shared-Videos/2022/birthday_part1.mp4", "kind": "video", "sizeBytes": 710000000, "mtimeDaysAgo": 1400 },
+          { "path": "Shared-Videos/2022/holiday_2022.mp4", "kind": "video", "sizeBytes": 480000000, "mtimeDaysAgo": 1390, "problem": "half-written-video: recording stopped mid-write, index atom missing" },
+          { "path": "Shared-Videos/2022/birthday_part2.mp4", "kind": "video", "sizeBytes": 690000000, "mtimeDaysAgo": 1400 }
+        ],
+        "arrival": { "weeklyCounts12": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], "newestFileGapDays": 1390, "medianArrivalGapDays": 90 }
+      },
+      "expected": {
+        "flagged": true,
+        "flags": ["broken-file"],
+        "grade": "B",
+        "broken": { "paths": ["Shared-Videos/2022/holiday_2022.mp4"], "verdict": "fails-to-open" },
+        "reportMustContain": ["holiday_2022.mp4"],
+        "mustNotFlag": ["silent-stop", "single-copy", "ransomware-tell", "vanished"]
+      }
+    },
+    {
+      "id": "single-01",
+      "family": "single-copy",
+      "name": "Shared-Reunion",
+      "owner": "Family",
+      "summary": "412 family reunion photos with people in them live in exactly one folder on one disk pool.",
+      "fixture": {
+        "folders": ["Shared-Reunion"],
+        "files": [
+          { "path": "Shared-Reunion/2015/IMG_5101.jpg", "kind": "photo-people", "sizeBytes": 4200000, "mtimeDaysAgo": 4000 },
+          { "path": "Shared-Reunion/2015/IMG_5102.jpg", "kind": "photo-people", "sizeBytes": 4100000, "mtimeDaysAgo": 4000 },
+          { "path": "Shared-Reunion/2015/IMG_5103.jpg", "kind": "photo-people", "sizeBytes": 4250000, "mtimeDaysAgo": 4000 }
+        ],
+        "totals": { "files": 412, "approxBytes": 41000000000, "copiesElsewhere": 0 },
+        "arrival": { "weeklyCounts12": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], "newestFileGapDays": 4000, "medianArrivalGapDays": 90 }
+      },
+      "expected": {
+        "flagged": true,
+        "flags": ["single-copy"],
+        "grade": "D",
+        "singleCopy": { "files": 412, "approxBytes": 41000000000 },
+        "reportMustContain": ["412", "copy it to a second location"],
+        "mustNotFlag": ["silent-stop", "broken-file", "ransomware-tell", "vanished"]
+      }
+    },
+    {
+      "id": "single-02",
+      "family": "single-copy",
+      "name": "Mom-Baby-Year",
+      "owner": "Mom",
+      "summary": "The baby's first year, 1050 people photos, one copy; the phone originals were deleted after syncing.",
+      "fixture": {
+        "folders": ["Mom-Baby-Year"],
+        "files": [
+          { "path": "Mom-Baby-Year/2025-02/IMG_9001.jpg", "kind": "photo-people", "sizeBytes": 3500000, "mtimeDaysAgo": 620 },
+          { "path": "Mom-Baby-Year/2025-02/IMG_9002.jpg", "kind": "photo-people", "sizeBytes": 3400000, "mtimeDaysAgo": 620 },
+          { "path": "Mom-Baby-Year/2025-03/IMG_9155.jpg", "kind": "photo-people", "sizeBytes": 3600000, "mtimeDaysAgo": 590 }
+        ],
+        "totals": { "files": 1050, "approxBytes": 12000000000, "copiesElsewhere": 0 },
+        "arrival": { "weeklyCounts12": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], "newestFileGapDays": 590, "medianArrivalGapDays": 90 }
+      },
+      "expected": {
+        "flagged": true,
+        "flags": ["single-copy"],
+        "grade": "D",
+        "singleCopy": { "files": 1050, "approxBytes": 12000000000 },
+        "reportMustContain": ["1050"],
+        "mustNotFlag": ["silent-stop", "broken-file", "ransomware-tell", "vanished"]
+      }
+    },
+    {
+      "id": "single-03",
+      "family": "single-copy",
+      "name": "Grandma-Scans",
+      "owner": "Family",
+      "summary": "88 scanned prints of people, one copy; a small set is still worth a fix, at grade B.",
+      "fixture": {
+        "folders": ["Grandma-Scans"],
+        "files": [
+          { "path": "Grandma-Scans/1962 scan 04.jpg", "kind": "photo-people", "sizeBytes": 25000000, "mtimeDaysAgo": 900 },
+          { "path": "Grandma-Scans/1962 scan 05.jpg", "kind": "photo-people", "sizeBytes": 26000000, "mtimeDaysAgo": 900 },
+          { "path": "Grandma-Scans/1968 scan 01.jpg", "kind": "photo-people", "sizeBytes": 24000000, "mtimeDaysAgo": 890 }
+        ],
+        "totals": { "files": 88, "approxBytes": 2200000000, "copiesElsewhere": 0 },
+        "arrival": { "weeklyCounts12": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], "newestFileGapDays": 890, "medianArrivalGapDays": 90 }
+      },
+      "expected": {
+        "flagged": true,
+        "flags": ["single-copy"],
+        "grade": "B",
+        "singleCopy": { "files": 88, "approxBytes": 2200000000 },
+        "reportMustContain": ["88"],
+        "mustNotFlag": ["silent-stop", "broken-file", "ransomware-tell", "vanished"]
+      }
+    },
+    {
+      "id": "single-04",
+      "family": "single-copy",
+      "name": "Wedding-2019",
+      "owner": "Family",
+      "summary": "260 wedding photos with family in them, one copy, shared folder only.",
+      "fixture": {
+        "folders": ["Wedding-2019"],
+        "files": [
+          { "path": "Wedding-2019/DSC_0811.jpg", "kind": "photo-people", "sizeBytes": 9800000, "mtimeDaysAgo": 2700 },
+          { "path": "Wedding-2019/DSC_0812.jpg", "kind": "photo-people", "sizeBytes": 9700000, "mtimeDaysAgo": 2700 },
+          { "path": "Wedding-2019/DSC_0813.jpg", "kind": "photo-people", "sizeBytes": 9900000, "mtimeDaysAgo": 2700 }
+        ],
+        "totals": { "files": 260, "approxBytes": 26000000000, "copiesElsewhere": 0 },
+        "arrival": { "weeklyCounts12": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], "newestFileGapDays": 2700, "medianArrivalGapDays": 90 }
+      },
+      "expected": {
+        "flagged": true,
+        "flags": ["single-copy"],
+        "grade": "D",
+        "singleCopy": { "files": 260, "approxBytes": 26000000000 },
+        "reportMustContain": ["260"],
+        "mustNotFlag": ["silent-stop", "broken-file", "ransomware-tell", "vanished"]
+      }
+    },
+    {
+      "id": "ransom-01",
+      "family": "ransomware-burst",
+      "name": "Kid-Tablet-Photos",
+      "owner": "Kid",
+      "summary": "214 photo files were renamed with a .locked extension inside one afternoon; the extension never appeared in the folder before.",
+      "fixture": {
+        "folders": ["Kid-Tablet-Photos"],
+        "files": [
+          { "path": "Kid-Tablet-Photos/IMG_1201.jpg.locked", "kind": "photo-people", "sizeBytes": 3100000, "mtimeDaysAgo": 2, "problem": "rename-burst: was IMG_1201.jpg, renamed with unfamiliar extension in one window" },
+          { "path": "Kid-Tablet-Photos/IMG_1202.jpg.locked", "kind": "photo-people", "sizeBytes": 3000000, "mtimeDaysAgo": 2, "problem": "rename-burst" },
+          { "path": "Kid-Tablet-Photos/IMG_1203.jpg", "kind": "photo-people", "sizeBytes": 3200000, "mtimeDaysAgo": 30 }
+        ],
+        "totals": { "renamedCount": 214, "renameWindowHours": 6, "extensionHistory": "0 files with .locked in the previous 12 weeks" },
+        "arrival": { "weeklyCounts12": [12, 10, 14, 11, 13, 12, 10, 14, 11, 13, 12, 10], "newestFileGapDays": 2, "medianArrivalGapDays": 1 }
+      },
+      "expected": {
+        "flagged": true,
+        "flags": ["ransomware-tell"],
+        "grade": "F",
+        "reportMustContain": ["stop syncing", "do not delete anything"],
+        "mustNotFlag": ["silent-stop", "single-copy", "broken-file", "vanished"]
+      }
+    },
+    {
+      "id": "ransom-02",
+      "family": "ransomware-burst",
+      "name": "Office-Docs",
+      "owner": "Dad",
+      "summary": "380 documents were renamed to .enc within one evening; the extension has no history in the folder.",
+      "fixture": {
+        "folders": ["Office-Docs"],
+        "files": [
+          { "path": "Office-Docs/contracts/2026-02.pdf.enc", "kind": "document", "sizeBytes": 190000, "mtimeDaysAgo": 1, "problem": "rename-burst: was 2026-02.pdf, renamed in one window" },
+          { "path": "Office-Docs/contracts/2026-03.pdf.enc", "kind": "document", "sizeBytes": 185000, "mtimeDaysAgo": 1, "problem": "rename-burst" },
+          { "path": "Office-Docs/notes/standing.txt", "kind": "document", "sizeBytes": 4200, "mtimeDaysAgo": 40 }
+        ],
+        "totals": { "renamedCount": 380, "renameWindowHours": 8, "extensionHistory": "0 files with .enc in the previous 12 weeks" },
+        "arrival": { "weeklyCounts12": [20, 18, 22, 19, 21, 20, 18, 22, 19, 21, 20, 18], "newestFileGapDays": 1, "medianArrivalGapDays": 1 }
+      },
+      "expected": {
+        "flagged": true,
+        "flags": ["ransomware-tell"],
+        "grade": "F",
+        "reportMustContain": ["stop syncing", "do not delete anything"],
+        "mustNotFlag": ["silent-stop", "single-copy", "broken-file", "vanished"]
+      }
+    },
+    {
+      "id": "ransom-03",
+      "family": "ransomware-burst",
+      "name": "Phone-Dump",
+      "owner": "Mom",
+      "summary": "180 of the newest files were renamed with a .crypt suffix over one night, the largest burst in the pack.",
+      "fixture": {
+        "folders": ["Phone-Dump"],
+        "files": [
+          { "path": "Phone-Dump/2026-11/vacation_01.jpg.crypt", "kind": "photo-people", "sizeBytes": 4400000, "mtimeDaysAgo": 1, "problem": "rename-burst: was vacation_01.jpg, renamed overnight" },
+          { "path": "Phone-Dump/2026-11/vacation_02.jpg.crypt", "kind": "photo-people", "sizeBytes": 4300000, "mtimeDaysAgo": 1, "problem": "rename-burst" },
+          { "path": "Phone-Dump/2026-10/vacation_99.jpg", "kind": "photo-people", "sizeBytes": 4500000, "mtimeDaysAgo": 20 }
+        ],
+        "totals": { "renamedCount": 180, "renameWindowHours": 10, "extensionHistory": "0 files with .crypt in the previous 12 weeks" },
+        "arrival": { "weeklyCounts12": [15, 14, 16, 15, 14, 16, 15, 14, 16, 15, 14, 16], "newestFileGapDays": 1, "medianArrivalGapDays": 1 }
+      },
+      "expected": {
+        "flagged": true,
+        "flags": ["ransomware-tell"],
+        "grade": "F",
+        "reportMustContain": ["stop syncing", "do not delete anything"],
+        "mustNotFlag": ["silent-stop", "single-copy", "broken-file", "vanished"]
+      }
+    },
+    {
+      "id": "healthy-01",
+      "family": "healthy",
+      "name": "Photos-Active",
+      "owner": "Mom",
+      "summary": "Steady weekly phone sync, newest file 2 days old, mixed people and screenshot content, sample fully opens.",
+      "fixture": {
+        "folders": ["Photos-Active"],
+        "files": [
+          { "path": "Photos-Active/2026-11/IMG_4401.jpg", "kind": "photo-people", "sizeBytes": 3900000, "mtimeDaysAgo": 2 },
+          { "path": "Photos-Active/2026-11/IMG_4402.jpg", "kind": "screenshot", "sizeBytes": 800000, "mtimeDaysAgo": 3 },
+          { "path": "Photos-Active/2026-10/IMG_4350.jpg", "kind": "photo-people", "sizeBytes": 4100000, "mtimeDaysAgo": 25 }
+        ],
+        "totals": { "files": 1900, "approxBytes": 68000000000, "copiesElsewhere": 0 },
+        "arrival": { "weeklyCounts12": [42, 39, 44, 41, 38, 43, 40, 42, 39, 44, 41, 38], "newestFileGapDays": 2, "medianArrivalGapDays": 7 }
+      },
+      "expected": {
+        "flagged": false,
+        "flags": [],
+        "grade": "A",
+        "reportMustContain": ["grade A"],
+        "mustNotFlag": ["silent-stop", "single-copy", "ransomware-tell", "broken-file", "vanished"]
+      }
+    },
+    {
+      "id": "healthy-02",
+      "family": "healthy",
+      "name": "Docs-Quarterly",
+      "owner": "Dad",
+      "summary": "A few documents per quarter, newest 40 days old; the folder's own rhythm is about 90 days, so the gap is normal.",
+      "fixture": {
+        "folders": ["Docs-Quarterly"],
+        "files": [
+          { "path": "Docs-Quarterly/2026-q1/statement.pdf", "kind": "document", "sizeBytes": 130000, "mtimeDaysAgo": 250 },
+          { "path": "Docs-Quarterly/2026-q2/statement.pdf", "kind": "document", "sizeBytes": 128000, "mtimeDaysAgo": 160 },
+          { "path": "Docs-Quarterly/2026-q3/statement.pdf", "kind": "document", "sizeBytes": 132000, "mtimeDaysAgo": 40 }
+        ],
+        "arrival": { "weeklyCounts12": [1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1], "newestFileGapDays": 40, "medianArrivalGapDays": 90 }
+      },
+      "expected": {
+        "flagged": false,
+        "flags": [],
+        "grade": "A",
+        "reportMustContain": ["grade A"],
+        "mustNotFlag": ["silent-stop", "single-copy", "ransomware-tell", "broken-file", "vanished"]
+      }
+    },
+    {
+      "id": "healthy-03",
+      "family": "healthy",
+      "name": "Screenshots-Only",
+      "owner": "Kid",
+      "summary": "900 screenshots and downloads, no people photos; the single-copy rule must not apply to tier 3.",
+      "fixture": {
+        "folders": ["Screenshots-Only"],
+        "files": [
+          { "path": "Screenshots-Only/shot_2026-11-01_0912.png", "kind": "screenshot", "sizeBytes": 900000, "mtimeDaysAgo": 10 },
+          { "path": "Screenshots-Only/installer_tool.zip", "kind": "download", "sizeBytes": 54000000, "mtimeDaysAgo": 12 },
+          { "path": "Screenshots-Only/shot_2026-11-03_1734.png", "kind": "screenshot", "sizeBytes": 920000, "mtimeDaysAgo": 8 }
+        ],
+        "totals": { "files": 900, "approxBytes": 9000000000, "copiesElsewhere": 0 },
+        "arrival": { "weeklyCounts12": [20, 18, 22, 19, 21, 20, 18, 22, 19, 21, 20, 18], "newestFileGapDays": 8, "medianArrivalGapDays": 1 }
+      },
+      "expected": {
+        "flagged": false,
+        "flags": [],
+        "grade": "A",
+        "reportMustContain": ["grade A"],
+        "mustNotFlag": ["silent-stop", "single-copy", "ransomware-tell", "broken-file", "vanished"]
+      }
+    },
+    {
+      "id": "healthy-04",
+      "family": "healthy",
+      "name": "Vacant-Archive",
+      "owner": "Dad",
+      "summary": "An empty folder; it must be reported as could not check, never graded A.",
+      "fixture": {
+        "folders": ["Vacant-Archive"],
+        "files": [],
+        "arrival": { "weeklyCounts12": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], "newestFileGapDays": 0, "medianArrivalGapDays": 90 }
+      },
+      "expected": {
+        "verdict": "could-not-check",
+        "flagged": false,
+        "flags": [],
+        "grade": null,
+        "reportMustContain": ["could not check"],
+        "mustNotFlag": ["silent-stop", "single-copy", "ransomware-tell", "broken-file", "vanished"]
+      }
+    }
+  ]
+}
