@@ -55,16 +55,21 @@ jobs:
         run: |
           git fetch origin main --quiet
           range="origin/main..HEAD"
-          if git log --format=%B "$range" | grep -qiE '(co-authored-by:.*(claude|anthropic|glm|zhipu|z\.ai|openai|copilot|cursor))|(generated (with|by).*(claude|glm|ai\b|zcode))'; then
+          if git log --no-merges --format=%B "$range" | grep -qiE '(co-authored-by:.*(claude|anthropic|glm|zhipu|z\.ai|openai|copilot|cursor))|(generated (with|by).*(claude|glm|ai\b|zcode))'; then
             echo "::error::attribution line found in commit messages"
             exit 1
           fi
           owner="${{ github.repository_owner }}"
-          if git log --format=%aN "$range" | sort -u | grep -qv "^${owner}$"; then
-            echo "::error::commit author is not the repo owner (${owner})"
+          # Key the check on the account noreply email: display names differ
+          # between clones, the noreply address identifies the account.
+          pat="^[0-9]+\\+${owner}@users\\.noreply\\.github\\.com$"
+          emails=$(git log --no-merges --format=%aE "$range" | sort -u)
+          if printf '%s\n' "$emails" | grep -qvE "$pat"; then
+            echo "::error::commit author is not the repo owner account (${owner})"
+            echo "$emails"
             exit 1
           fi
-          echo "attribution OK: every commit in this pull request is authored by ${owner}"
+          echo "attribution OK: every commit in this pull request is authored by the ${owner} account"
 
   secret-scan:
     name: Secret scan
@@ -73,6 +78,12 @@ jobs:
       - uses: actions/checkout@v4
         with:
           fetch-depth: 0
-      - uses: gitleaks/gitleaks-action@v2
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: Install gitleaks (pinned version)
+        run: |
+          curl --fail --location --silent --show-error --retry 3 \
+            -o /tmp/gitleaks.tgz \
+            "https://github.com/zricethezav/gitleaks/releases/download/v8.24.3/gitleaks_8.24.3_linux_x64.tar.gz"
+          tar -xzf /tmp/gitleaks.tgz -C /tmp gitleaks
+          /tmp/gitleaks version
+      - name: Scan the full history
+        run: /tmp/gitleaks detect --source . --log-opts="--all" --redact --verbose
