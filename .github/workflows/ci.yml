@@ -1,0 +1,78 @@
+name: ci
+
+on:
+  pull_request:
+    branches: [main]
+  push:
+    branches: [main]
+
+jobs:
+  drill-pack:
+    name: Drill Pack expected results
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - run: node bench/validate-expected.mjs bench/drill-pack/expected.json
+
+  skill-package:
+    name: Kit checker on the skill package
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - name: Fetch the official starter kit (pinned URL, not committed)
+        run: |
+          curl --fail --location --silent --show-error --retry 3 \
+            -o /tmp/uliya-skill-kit.zip \
+            "https://cdn.shopify.com/s/files/1/0630/9416/1602/files/uliya-skill-kit-0.7.3-en.zip?v=1790578898"
+          mkdir -p /tmp/kit
+          unzip -q /tmp/uliya-skill-kit.zip -d /tmp/kit
+      - name: Run the checker and require a static pass
+        run: |
+          node /tmp/kit/uliya-skill-kit/scripts/check-skill.mjs skill/backup-fire-drill > /tmp/check-result.json || true
+          node -e 'const r=require("/tmp/check-result.json");console.log("kit checker:",r.status,"errors:",r.summary.errors,"warnings:",r.summary.warnings);if(r.summary.errors!==0||r.summary.warnings!==0){console.error("static pass required: 0 errors and 0 warnings");process.exit(1)}'
+      - name: Keep the checker output
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: kit-check-result
+          path: /tmp/check-result.json
+
+  attribution:
+    name: Owner-only authorship, attribution guard
+    runs-on: ubuntu-latest
+    if: github.event_name == 'pull_request'
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Scan the pull request commits
+        run: |
+          git fetch origin main --quiet
+          range="origin/main..HEAD"
+          if git log --format=%B "$range" | grep -qiE '(co-authored-by:.*(claude|anthropic|glm|zhipu|z\.ai|openai|copilot|cursor))|(generated (with|by).*(claude|glm|ai\b|zcode))'; then
+            echo "::error::attribution line found in commit messages"
+            exit 1
+          fi
+          owner="${{ github.repository_owner }}"
+          if git log --format=%aN "$range" | sort -u | grep -qv "^${owner}$"; then
+            echo "::error::commit author is not the repo owner (${owner})"
+            exit 1
+          fi
+          echo "attribution OK: every commit in this pull request is authored by ${owner}"
+
+  secret-scan:
+    name: Secret scan
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: gitleaks/gitleaks-action@v2
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
