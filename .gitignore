@@ -9,3 +9,4 @@ dist/
 .zcode/
 NIGHTLY.md
 tools/
+build/

@@ -12,7 +12,11 @@
     "typecheck": "tsc -p tsconfig.json --noEmit",
     "test": "npm run build && node --test dist/tests/",
     "bench": "npm run build && node dist/sim/src/bench.js",
-    "render": "node bench/render.mjs"
+    "render": "node bench/render.mjs",
+    "demo": "npm --prefix demo install --no-fund --no-audit && npm --prefix demo run dev",
+    "demo:build": "npm --prefix demo install --no-fund --no-audit && npm --prefix demo run build",
+    "package-zip": "node scripts/build-package-zip.mjs",
+    "words": "node proposal/count-words.mjs proposal/proposal.md"
   },
   "devDependencies": {
     "@eslint/js": "9.39.5",

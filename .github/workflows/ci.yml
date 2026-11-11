@@ -106,3 +106,43 @@ jobs:
           /tmp/gitleaks version
       - name: Scan the full history
         run: /tmp/gitleaks detect --source . --log-opts="--all" --redact --verbose
+
+  demo:
+    name: Demo app build
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - run: npm --prefix demo ci
+      - run: npm --prefix demo run build
+
+  proposal:
+    name: Proposal word count (limit 500)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - run: node proposal/count-words.mjs proposal/proposal.md
+
+  package-zip:
+    name: Submission ZIP and kit checker on it
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - run: node scripts/build-package-zip.mjs
+      - name: Fetch the official starter kit (pinned URL, not committed)
+        run: |
+          curl --fail --location --silent --show-error --retry 3 \
+            -o /tmp/uliya-skill-kit.zip \
+            "https://cdn.shopify.com/s/files/1/0630/9416/1602/files/uliya-skill-kit-0.7.3-en.zip?v=1790578898"
+          mkdir -p /tmp/kit
+          unzip -q /tmp/uliya-skill-kit.zip -d /tmp/kit
+      - name: Run the checker on the unzipped package (0 errors, 0 warnings, 0 info)
+        run: |
+          unzip -q build/backup-fire-drill.zip -d /tmp/zipcheck
+          node /tmp/kit/uliya-skill-kit/scripts/check-skill.mjs /tmp/zipcheck/backup-fire-drill > /tmp/zip-check-result.json || true
+          node -e 'const r=require("/tmp/zip-check-result.json");console.log("zip kit checker:",r.status,"errors:",r.summary.errors,"warnings:",r.summary.warnings,"info:",r.summary.info);if(r.summary.errors!==0||r.summary.warnings!==0||r.summary.info!==0)process.exit(1)'

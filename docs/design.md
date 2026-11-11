@@ -69,6 +69,8 @@ Design consequences:
 | 2026-11-12 | The open-fail spike tell requires at least 100 files in the folder. | On smaller folders the 25 percent rate is noise: one failed file out of three would fire the tell. |
 | 2026-11-12 | Drill Pack fixtures upgraded to generator-grade: scope (role, device, originals), coherent history blocks, and burst blocks replace the Night 1 narrative numbers. | The narrative numbers did not cohere (six weeks of about 40 files a week cannot end 74 days ago inside a 12-week window); the simulator needs exact, self-consistent inputs. |
 | 2026-11-12 | Identical synthetic content is declared with an explicit contentId per file. | Hashing path and size made cross-folder duplicate detection impossible; contentId models what the expert hash result means. |
+| 2026-11-12 | EXIF capture dates for the silent-stop rule are deferred to finalist day and stay on the README roadmap. | The rule needs real NAS metadata to be worth anything; the kit catalog confirms the `meta` action exists (line 4879), but designing against invented EXIF behaviour would violate the no-invention rule. |
+| 2026-11-12 | The submission ZIP is built by scripts/build-package-zip.mjs from skill/backup-fire-drill/ only, and CI re-checks the unzipped copy with the kit checker. | `tools/` is reserved for excluded local tooling, so the script lives under scripts/; a build artifact must never enter the package. |
 
 ## Known gaps
 
