@@ -9,8 +9,8 @@ A UGOS Skill for UGREEN AI NAS that finds the photos that exist only once, copie
 
 <p align="center">
   <a href="https://github.com/evdatsion/fire-drill/actions/workflows/ci.yml"><img src="https://github.com/evdatsion/fire-drill/actions/workflows/ci.yml/badge.svg" alt="CI"></a>
-  <img src="https://img.shields.io/badge/Drill%20Pack-BENCH_SCORE-brightgreen" alt="Drill Pack score">
-  <img src="https://img.shields.io/badge/healthy%20folders%20flagged-HEALTHY_FLAGGED-brightgreen" alt="Healthy folders flagged">
+  <img src="https://img.shields.io/badge/Drill%20Pack-20%2F20-brightgreen" alt="Drill Pack score">
+  <img src="https://img.shields.io/badge/healthy%20folders%20flagged-0-brightgreen" alt="Healthy folders flagged">
   <img src="https://img.shields.io/badge/package-Markdown%20only-blue" alt="Markdown only">
   <img src="https://img.shields.io/badge/license-MIT-lightgrey" alt="MIT">
 </p>
@@ -68,17 +68,17 @@ The on-device AI opens and classifies files. **Rules decide** every flag and gra
 20 synthetic cases with an expected result each: 4 stopped backups, 5 broken files, 4 single-copy photo sets, 3 ransomware-style rename bursts and 4 healthy controls that must not be flagged.
 
 <p align="center">
-  <!-- <img src="docs/diagrams/bench-results.svg" alt="Drill Pack results by case type" width="640"> -->
+  <img src="docs/diagrams/bench-results.svg" alt="Drill Pack results by case type" width="640">
 </p>
 
 | Case type | Cases | Matched |
 |---|---|---|
-| Stopped backups | 4 | BENCH_STOPPED |
-| Broken or partial files | 5 | BENCH_BROKEN |
-| Only one copy | 4 | BENCH_SINGLE |
-| Mass change | 3 | BENCH_MASS |
-| Healthy controls (must not flag) | 4 | BENCH_HEALTHY |
-| **Total** | **20** | **BENCH_SCORE** |
+| Stopped backups | 4 | 4 |
+| Broken or partial files | 5 | 5 |
+| Only one copy | 4 | 4 |
+| Mass change | 3 | 3 |
+| Healthy controls (must not flag) | 4 | 4 |
+| **Total** | **20** | **20/20** |
 
 The bench runs on the reference simulator (`sim/`), which applies the same written rules to synthetic folders on a laptop. It has not run on a NAS yet. Raw output: [bench/results.json](bench/results.json). Reproduce: `npm run bench`.
 

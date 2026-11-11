@@ -1,0 +1,559 @@
+{
+  "pack": "drill-pack",
+  "benchVersion": "1.0.0",
+  "simulator": "sim/ (TypeScript, Node >= 20); runs on a laptop, not a NAS",
+  "target": {
+    "minScore": 18,
+    "maxHealthyFlagged": 0
+  },
+  "cases": [
+    {
+      "id": "stopped-01",
+      "family": "stopped-backup",
+      "name": "Mom-iPhone",
+      "expected": {
+        "flags": [
+          "silent-stop"
+        ],
+        "grade": "C",
+        "verdict": null
+      },
+      "actual": {
+        "flags": [
+          "silent-stop"
+        ],
+        "grade": "C",
+        "verdict": null
+      },
+      "matched": true,
+      "checks": {
+        "flagSet": true,
+        "grade": true,
+        "reportLines": true,
+        "mustNotFlag": true
+      }
+    },
+    {
+      "id": "stopped-02",
+      "family": "stopped-backup",
+      "name": "Dad-Laptop",
+      "expected": {
+        "flags": [
+          "silent-stop"
+        ],
+        "grade": "C",
+        "verdict": null
+      },
+      "actual": {
+        "flags": [
+          "silent-stop"
+        ],
+        "grade": "C",
+        "verdict": null
+      },
+      "matched": true,
+      "checks": {
+        "flagSet": true,
+        "grade": true,
+        "reportLines": true,
+        "mustNotFlag": true
+      }
+    },
+    {
+      "id": "stopped-03",
+      "family": "stopped-backup",
+      "name": "Projects-Share",
+      "expected": {
+        "flags": [
+          "silent-stop"
+        ],
+        "grade": "C",
+        "verdict": null
+      },
+      "actual": {
+        "flags": [
+          "silent-stop"
+        ],
+        "grade": "C",
+        "verdict": null
+      },
+      "matched": true,
+      "checks": {
+        "flagSet": true,
+        "grade": true,
+        "reportLines": true,
+        "mustNotFlag": true
+      }
+    },
+    {
+      "id": "stopped-04",
+      "family": "stopped-backup",
+      "name": "Cam-Footage",
+      "expected": {
+        "flags": [
+          "silent-stop"
+        ],
+        "grade": "C",
+        "verdict": null
+      },
+      "actual": {
+        "flags": [
+          "silent-stop"
+        ],
+        "grade": "C",
+        "verdict": null
+      },
+      "matched": true,
+      "checks": {
+        "flagSet": true,
+        "grade": true,
+        "reportLines": true,
+        "mustNotFlag": true
+      }
+    },
+    {
+      "id": "broken-01",
+      "family": "broken-file",
+      "name": "Dad-Laptop-Photos",
+      "expected": {
+        "flags": [
+          "broken-file"
+        ],
+        "grade": "B",
+        "verdict": null
+      },
+      "actual": {
+        "flags": [
+          "broken-file"
+        ],
+        "grade": "B",
+        "verdict": null
+      },
+      "matched": true,
+      "checks": {
+        "flagSet": true,
+        "grade": true,
+        "reportLines": true,
+        "mustNotFlag": true
+      }
+    },
+    {
+      "id": "broken-02",
+      "family": "broken-file",
+      "name": "Dad-Laptop-Docs",
+      "expected": {
+        "flags": [
+          "broken-file"
+        ],
+        "grade": "B",
+        "verdict": null
+      },
+      "actual": {
+        "flags": [
+          "broken-file"
+        ],
+        "grade": "B",
+        "verdict": null
+      },
+      "matched": true,
+      "checks": {
+        "flagSet": true,
+        "grade": true,
+        "reportLines": true,
+        "mustNotFlag": true
+      }
+    },
+    {
+      "id": "broken-03",
+      "family": "broken-file",
+      "name": "Kid-Tablet-Downloads",
+      "expected": {
+        "flags": [
+          "broken-file"
+        ],
+        "grade": "B",
+        "verdict": null
+      },
+      "actual": {
+        "flags": [
+          "broken-file"
+        ],
+        "grade": "B",
+        "verdict": null
+      },
+      "matched": true,
+      "checks": {
+        "flagSet": true,
+        "grade": true,
+        "reportLines": true,
+        "mustNotFlag": true
+      }
+    },
+    {
+      "id": "broken-04",
+      "family": "broken-file",
+      "name": "Old-Photos",
+      "expected": {
+        "flags": [
+          "broken-file"
+        ],
+        "grade": "B",
+        "verdict": null
+      },
+      "actual": {
+        "flags": [
+          "broken-file"
+        ],
+        "grade": "B",
+        "verdict": null
+      },
+      "matched": true,
+      "checks": {
+        "flagSet": true,
+        "grade": true,
+        "reportLines": true,
+        "mustNotFlag": true
+      }
+    },
+    {
+      "id": "broken-05",
+      "family": "broken-file",
+      "name": "Shared-Videos",
+      "expected": {
+        "flags": [
+          "broken-file"
+        ],
+        "grade": "B",
+        "verdict": null
+      },
+      "actual": {
+        "flags": [
+          "broken-file"
+        ],
+        "grade": "B",
+        "verdict": null
+      },
+      "matched": true,
+      "checks": {
+        "flagSet": true,
+        "grade": true,
+        "reportLines": true,
+        "mustNotFlag": true
+      }
+    },
+    {
+      "id": "single-01",
+      "family": "single-copy",
+      "name": "Shared-Reunion",
+      "expected": {
+        "flags": [
+          "single-copy"
+        ],
+        "grade": "D",
+        "verdict": null
+      },
+      "actual": {
+        "flags": [
+          "single-copy"
+        ],
+        "grade": "D",
+        "verdict": null
+      },
+      "matched": true,
+      "checks": {
+        "flagSet": true,
+        "grade": true,
+        "reportLines": true,
+        "mustNotFlag": true
+      }
+    },
+    {
+      "id": "single-02",
+      "family": "single-copy",
+      "name": "Mom-Baby-Year",
+      "expected": {
+        "flags": [
+          "single-copy"
+        ],
+        "grade": "D",
+        "verdict": null
+      },
+      "actual": {
+        "flags": [
+          "single-copy"
+        ],
+        "grade": "D",
+        "verdict": null
+      },
+      "matched": true,
+      "checks": {
+        "flagSet": true,
+        "grade": true,
+        "reportLines": true,
+        "mustNotFlag": true
+      }
+    },
+    {
+      "id": "single-03",
+      "family": "single-copy",
+      "name": "Grandma-Scans",
+      "expected": {
+        "flags": [
+          "single-copy"
+        ],
+        "grade": "B",
+        "verdict": null
+      },
+      "actual": {
+        "flags": [
+          "single-copy"
+        ],
+        "grade": "B",
+        "verdict": null
+      },
+      "matched": true,
+      "checks": {
+        "flagSet": true,
+        "grade": true,
+        "reportLines": true,
+        "mustNotFlag": true
+      }
+    },
+    {
+      "id": "single-04",
+      "family": "single-copy",
+      "name": "Wedding-2019",
+      "expected": {
+        "flags": [
+          "single-copy"
+        ],
+        "grade": "D",
+        "verdict": null
+      },
+      "actual": {
+        "flags": [
+          "single-copy"
+        ],
+        "grade": "D",
+        "verdict": null
+      },
+      "matched": true,
+      "checks": {
+        "flagSet": true,
+        "grade": true,
+        "reportLines": true,
+        "mustNotFlag": true
+      }
+    },
+    {
+      "id": "ransom-01",
+      "family": "ransomware-burst",
+      "name": "Kid-Tablet-Photos",
+      "expected": {
+        "flags": [
+          "ransomware-tell"
+        ],
+        "grade": "F",
+        "verdict": null
+      },
+      "actual": {
+        "flags": [
+          "ransomware-tell"
+        ],
+        "grade": "F",
+        "verdict": null
+      },
+      "matched": true,
+      "checks": {
+        "flagSet": true,
+        "grade": true,
+        "reportLines": true,
+        "mustNotFlag": true
+      }
+    },
+    {
+      "id": "ransom-02",
+      "family": "ransomware-burst",
+      "name": "Office-Docs",
+      "expected": {
+        "flags": [
+          "ransomware-tell"
+        ],
+        "grade": "F",
+        "verdict": null
+      },
+      "actual": {
+        "flags": [
+          "ransomware-tell"
+        ],
+        "grade": "F",
+        "verdict": null
+      },
+      "matched": true,
+      "checks": {
+        "flagSet": true,
+        "grade": true,
+        "reportLines": true,
+        "mustNotFlag": true
+      }
+    },
+    {
+      "id": "ransom-03",
+      "family": "ransomware-burst",
+      "name": "Phone-Dump",
+      "expected": {
+        "flags": [
+          "ransomware-tell"
+        ],
+        "grade": "F",
+        "verdict": null
+      },
+      "actual": {
+        "flags": [
+          "ransomware-tell"
+        ],
+        "grade": "F",
+        "verdict": null
+      },
+      "matched": true,
+      "checks": {
+        "flagSet": true,
+        "grade": true,
+        "reportLines": true,
+        "mustNotFlag": true
+      }
+    },
+    {
+      "id": "healthy-01",
+      "family": "healthy",
+      "name": "Photos-Active",
+      "expected": {
+        "flags": [],
+        "grade": "A",
+        "verdict": null
+      },
+      "actual": {
+        "flags": [],
+        "grade": "A",
+        "verdict": null
+      },
+      "matched": true,
+      "checks": {
+        "flagSet": true,
+        "grade": true,
+        "reportLines": true,
+        "mustNotFlag": true
+      }
+    },
+    {
+      "id": "healthy-02",
+      "family": "healthy",
+      "name": "Docs-Quarterly",
+      "expected": {
+        "flags": [],
+        "grade": "A",
+        "verdict": null
+      },
+      "actual": {
+        "flags": [],
+        "grade": "A",
+        "verdict": null
+      },
+      "matched": true,
+      "checks": {
+        "flagSet": true,
+        "grade": true,
+        "reportLines": true,
+        "mustNotFlag": true
+      }
+    },
+    {
+      "id": "healthy-03",
+      "family": "healthy",
+      "name": "Screenshots-Only",
+      "expected": {
+        "flags": [],
+        "grade": "A",
+        "verdict": null
+      },
+      "actual": {
+        "flags": [],
+        "grade": "A",
+        "verdict": null
+      },
+      "matched": true,
+      "checks": {
+        "flagSet": true,
+        "grade": true,
+        "reportLines": true,
+        "mustNotFlag": true
+      }
+    },
+    {
+      "id": "healthy-04",
+      "family": "healthy",
+      "name": "Vacant-Archive",
+      "expected": {
+        "flags": [],
+        "grade": null,
+        "verdict": "could-not-check"
+      },
+      "actual": {
+        "flags": [],
+        "grade": null,
+        "verdict": "could-not-check"
+      },
+      "matched": true,
+      "checks": {
+        "flagSet": true,
+        "grade": true,
+        "reportLines": true,
+        "mustNotFlag": true
+      }
+    }
+  ],
+  "twoDrill": {
+    "folder": "Mom-iPhone",
+    "manifestFiles": 1000,
+    "largeDrop": {
+      "missing": 387,
+      "warned": true,
+      "lastSeenReported": true,
+      "matched": true
+    },
+    "smallDrop": {
+      "missing": 5,
+      "warned": false,
+      "lastSeenReported": true,
+      "matched": true
+    }
+  },
+  "summary": {
+    "score": 20,
+    "total": 20,
+    "healthyFlagged": 0,
+    "twoDrillMatched": true,
+    "byFamily": {
+      "stopped-backup": {
+        "total": 4,
+        "matched": 4
+      },
+      "broken-file": {
+        "total": 5,
+        "matched": 5
+      },
+      "single-copy": {
+        "total": 4,
+        "matched": 4
+      },
+      "ransomware-burst": {
+        "total": 3,
+        "matched": 3
+      },
+      "healthy": {
+        "total": 4,
+        "matched": 4
+      }
+    }
+  }
+}
