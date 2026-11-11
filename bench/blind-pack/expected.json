@@ -1,0 +1,164 @@
+{
+  "pack": "blind",
+  "version": "1.0.0",
+  "description": "Adversarial holdout written by the reviewer; the rules were never tuned against these. Oracle = the correct result a right drill should give. Scored against the shipped rules to measure where they fail. Night 4: measured, no rule changes.",
+  "cases": [
+    {
+      "id": "blind-seasonal-01",
+      "family": "seasonal",
+      "name": "Holiday-Camera",
+      "owner": "Dad",
+      "summary": "A camera card that only receives photos during the December holidays; legitimately quiet the rest of the year.",
+      "fixture": {
+        "folders": ["Holiday-Camera"],
+        "scope": { "role": "device-backup", "device": "Dad's camera SD", "originalsOnDevice": true },
+        "files": [
+          { "path": "Holiday-Camera/2025-12/IMG_9001.jpg", "kind": "photo-people", "sizeBytes": 4100000, "mtimeDaysAgo": 348 },
+          { "path": "Holiday-Camera/2025-12/IMG_9042.jpg", "kind": "photo-people", "sizeBytes": 3990000, "mtimeDaysAgo": 342 },
+          { "path": "Holiday-Camera/2025-12/IMG_9087.jpg", "kind": "photo-people", "sizeBytes": 4050000, "mtimeDaysAgo": 336 },
+          { "path": "Holiday-Camera/2025-12/IMG_9120.jpg", "kind": "photo-people", "sizeBytes": 4020000, "mtimeDaysAgo": 330 }
+        ],
+        "history": { "totalFiles": 72, "endDaysAgo": 330, "oldestDaysAgo": 350 }
+      },
+      "expected": {
+        "flagged": false,
+        "flags": [],
+        "grade": "A",
+        "reportMustContain": ["grade a"],
+        "mustNotFlag": ["silent-stop", "single-copy", "broken-file", "ransomware-tell", "vanished"]
+      }
+    },
+    {
+      "id": "blind-exif-02",
+      "family": "exif-damage",
+      "name": "Dad-Laptop-Photos",
+      "owner": "Dad",
+      "summary": "Three people photos whose metadata reads fine but whose image body is truncated; the open test must still fail them.",
+      "fixture": {
+        "folders": ["Dad-Laptop-Photos"],
+        "scope": { "role": "device-backup", "device": "Dad's laptop", "originalsOnDevice": true },
+        "files": [
+          { "path": "Dad-Laptop-Photos/2026/IMG_2001.jpg", "kind": "photo-people", "sizeBytes": 3800000, "mtimeDaysAgo": 3 },
+          { "path": "Dad-Laptop-Photos/2026/IMG_2002.jpg", "kind": "photo-people", "sizeBytes": 3700000, "mtimeDaysAgo": 5 },
+          { "path": "Dad-Laptop-Photos/2025/IMG_1501.jpg", "kind": "photo-people", "sizeBytes": 120000, "mtimeDaysAgo": 118, "problem": "truncated-body-exif-ok" },
+          { "path": "Dad-Laptop-Photos/2025/IMG_1502.jpg", "kind": "photo-people", "sizeBytes": 90000, "mtimeDaysAgo": 119, "problem": "truncated-body-exif-ok" },
+          { "path": "Dad-Laptop-Photos/2025/IMG_1503.jpg", "kind": "photo-people", "sizeBytes": 60000, "mtimeDaysAgo": 120, "problem": "truncated-body-exif-ok" }
+        ],
+        "history": { "totalFiles": 40, "endDaysAgo": 3, "oldestDaysAgo": 120 }
+      },
+      "expected": {
+        "flagged": true,
+        "flags": ["broken-file"],
+        "grade": "B",
+        "reportMustContain": ["grade b"],
+        "mustNotFlag": ["silent-stop", "single-copy", "ransomware-tell", "vanished"]
+      }
+    },
+    {
+      "id": "blind-dupe-03",
+      "family": "duplicate",
+      "name": "Shared-Family",
+      "owner": "Shared",
+      "summary": "Two photos share a filename but differ in content (both irreplaceable); two others are genuine duplicates of one photo and must count as copies, not single.",
+      "fixture": {
+        "folders": ["Shared-Family"],
+        "scope": { "role": "device-backup", "device": "Shared NAS folder", "originalsOnDevice": false },
+        "files": [
+          { "path": "Shared-Family/Trip2019/IMG_1000.jpg", "kind": "photo-people", "sizeBytes": 3800000, "mtimeDaysAgo": 9 },
+          { "path": "Shared-Family/Trip2021/IMG_1000.jpg", "kind": "photo-people", "sizeBytes": 3900000, "mtimeDaysAgo": 5 },
+          { "path": "Shared-Family/Originals/wedding_01.jpg", "kind": "photo-people", "sizeBytes": 4200000, "mtimeDaysAgo": 13, "contentId": "DUP1" },
+          { "path": "Shared-Family/Backup/wedding_01_copy.jpg", "kind": "photo-people", "sizeBytes": 4200000, "mtimeDaysAgo": 11, "contentId": "DUP1" },
+          { "path": "Shared-Family/Trip2019/IMG_1044.jpg", "kind": "photo-people", "sizeBytes": 3700000, "mtimeDaysAgo": 7 }
+        ],
+        "history": { "totalFiles": 5, "endDaysAgo": 5, "oldestDaysAgo": 13 }
+      },
+      "expected": {
+        "flagged": true,
+        "flags": ["single-copy"],
+        "grade": "B",
+        "singleCopy": { "files": 3 },
+        "reportMustContain": ["grade b"],
+        "mustNotFlag": ["silent-stop", "broken-file", "ransomware-tell", "vanished"]
+      }
+    },
+    {
+      "id": "blind-masking-04",
+      "family": "masking",
+      "name": "Family-Dump",
+      "owner": "Family",
+      "summary": "A folder full of recent screenshots; the few irreplaceable people photos stopped arriving four months ago, hidden by the screenshot stream.",
+      "fixture": {
+        "folders": ["Family-Dump"],
+        "scope": { "role": "device-backup", "device": "Family tablet", "originalsOnDevice": false },
+        "files": [
+          { "path": "Family-Dump/Screens/SS_2001.png", "kind": "screenshot", "sizeBytes": 900000, "mtimeDaysAgo": 2 },
+          { "path": "Family-Dump/Screens/SS_2002.png", "kind": "screenshot", "sizeBytes": 880000, "mtimeDaysAgo": 4 },
+          { "path": "Family-Dump/Screens/SS_2003.png", "kind": "screenshot", "sizeBytes": 870000, "mtimeDaysAgo": 6 },
+          { "path": "Family-Dump/People/IMG_3001.jpg", "kind": "photo-people", "sizeBytes": 3800000, "mtimeDaysAgo": 115 },
+          { "path": "Family-Dump/People/IMG_3002.jpg", "kind": "photo-people", "sizeBytes": 3700000, "mtimeDaysAgo": 118 },
+          { "path": "Family-Dump/People/IMG_3003.jpg", "kind": "photo-people", "sizeBytes": 3900000, "mtimeDaysAgo": 121 },
+          { "path": "Family-Dump/People/IMG_3004.jpg", "kind": "photo-people", "sizeBytes": 3600000, "mtimeDaysAgo": 124 },
+          { "path": "Family-Dump/People/IMG_3005.jpg", "kind": "photo-people", "sizeBytes": 3850000, "mtimeDaysAgo": 127 },
+          { "path": "Family-Dump/People/IMG_3006.jpg", "kind": "photo-people", "sizeBytes": 3750000, "mtimeDaysAgo": 130 },
+          { "path": "Family-Dump/People/IMG_3007.jpg", "kind": "photo-people", "sizeBytes": 3950000, "mtimeDaysAgo": 133 },
+          { "path": "Family-Dump/People/IMG_3008.jpg", "kind": "photo-people", "sizeBytes": 3650000, "mtimeDaysAgo": 135 }
+        ],
+        "history": { "totalFiles": 320, "endDaysAgo": 2, "oldestDaysAgo": 200 }
+      },
+      "expected": {
+        "flagged": true,
+        "flags": ["silent-stop", "single-copy"],
+        "grade": "C",
+        "singleCopy": { "files": 8 },
+        "silentStop": { "newestFileGapDays": 115 },
+        "reportMustContain": ["grade c"],
+        "mustNotFlag": ["broken-file", "ransomware-tell", "vanished"]
+      }
+    },
+    {
+      "id": "blind-empty-05",
+      "family": "empty",
+      "name": "Grandma-Phone",
+      "owner": "Grandma",
+      "summary": "A backup folder the drill can read but which contains no files at all; an empty backup is a finding, not 'could not check'.",
+      "fixture": {
+        "folders": ["Grandma-Phone"],
+        "scope": { "role": "device-backup", "device": "Grandma's phone", "originalsOnDevice": true },
+        "files": [],
+        "history": { "totalFiles": 0, "endDaysAgo": 0, "oldestDaysAgo": 0 }
+      },
+      "expected": {
+        "verdict": null,
+        "flagged": false,
+        "flags": [],
+        "grade": null,
+        "reportMustContain": ["empty"],
+        "mustNotFlag": ["silent-stop", "single-copy", "broken-file", "ransomware-tell", "vanished"]
+      }
+    },
+    {
+      "id": "blind-partial-rename-06",
+      "family": "partial-rename",
+      "name": "Kid-Tablet",
+      "owner": "Kid",
+      "summary": "Eighteen files renamed to a never-seen .enc extension within an afternoon: a rename burst just under the 20-file threshold that should still raise the urgent warning.",
+      "fixture": {
+        "folders": ["Kid-Tablet"],
+        "scope": { "role": "device-backup", "device": "Kid's tablet", "originalsOnDevice": true },
+        "files": [
+          { "path": "Kid-Tablet/Camera/IMG_7001.jpg", "kind": "photo-people", "sizeBytes": 3800000, "mtimeDaysAgo": 20 },
+          { "path": "Kid-Tablet/Camera/IMG_7002.jpg", "kind": "photo-people", "sizeBytes": 3700000, "mtimeDaysAgo": 30 }
+        ],
+        "history": { "totalFiles": 140, "endDaysAgo": 20, "oldestDaysAgo": 120 },
+        "burst": { "extension": ".enc", "count": 18, "windowHours": 20, "endDaysAgo": 1 }
+      },
+      "expected": {
+        "flagged": true,
+        "flags": ["ransomware-tell"],
+        "grade": "F",
+        "reportMustContain": ["stop syncing"],
+        "mustNotFlag": ["silent-stop", "single-copy", "broken-file", "vanished"]
+      }
+    }
+  ]
+}
