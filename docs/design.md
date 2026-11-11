@@ -61,6 +61,8 @@ Design consequences:
 | 2026-11-11 | Pre-commit guard also blocks GLM_HANDBOOK.md and any file name ending in SPEC.md or SETUP.md, beyond the standard setup list. | Owner instruction for this repository. |
 | 2026-11-11 | Hook files were committed while the hooks were not yet active, then core.hooksPath was enabled locally. | The hook's own secret-scan patterns would otherwise match their own diff; the scan itself is unchanged. |
 | 2026-11-11 | CI fetches the official kit zip (0.7.3-en) from the starter-kit page at a pinned URL instead of committing the kit. | The kit must not be redistributed; the pinned download was verified byte-identical to the local copy. |
+| 2026-11-12 | The README states the Open Innovation track; the owner draft said "Explore Your Imagination". | The Devpost page lists four tracks and Open Innovation is one of them; no track by the draft's name exists (checked Nov 12, 2026). |
+| 2026-11-12 | Source links added for the Macrium 2017 survey and the Feb 7, 2026 photo-deletion incident. | Both verified: Macrium blog, March 9, 2017 (46% have never completed a test restore); Futurism report, Feb 13, 2026, on the Feb 7 desktop-tidying deletion of about 15,000 family photos. |
 
 ## Known gaps
 
