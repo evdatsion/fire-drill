@@ -11,7 +11,7 @@
       "summary": "A camera card that only receives photos during the December holidays; legitimately quiet the rest of the year.",
       "fixture": {
         "folders": ["Holiday-Camera"],
-        "scope": { "role": "device-backup", "device": "Dad's camera SD", "originalsOnDevice": true },
+        "scope": { "role": "device-backup", "device": "Dad's camera SD", "originalsOnDevice": true, "seasonal": true },
         "files": [
           { "path": "Holiday-Camera/2025-12/IMG_9001.jpg", "kind": "photo-people", "sizeBytes": 4100000, "mtimeDaysAgo": 348 },
           { "path": "Holiday-Camera/2025-12/IMG_9042.jpg", "kind": "photo-people", "sizeBytes": 3990000, "mtimeDaysAgo": 342 },

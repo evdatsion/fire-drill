@@ -11,6 +11,10 @@ export interface Scope {
   role: "device-backup" | "archive";
   device: string;
   originalsOnDevice: boolean;
+  /** The user marked this folder as receiving files only in seasons (e.g. a holiday camera); the stop check is deferred, like an archive. */
+  seasonal?: boolean;
+  /** Whether the drill could read the folder. Defaults to true; false means the read failed (could-not-check), distinct from a readable but empty folder. */
+  accessible?: boolean;
 }
 
 export interface FileSpec {
@@ -19,6 +23,8 @@ export interface FileSpec {
   sizeBytes: number;
   mtimeDaysAgo: number;
   problem?: string;
+  /** Declares identical content across files; defaults to the path (unique). */
+  contentId?: string;
 }
 
 export interface History {

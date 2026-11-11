@@ -41,6 +41,7 @@ export interface CardInput {
   owner: string;
   device: string;
   grade: Grade | null;
+  empty?: boolean;
   flags: Flag[];
   silentStop: SilentStopResult;
   openTest: OpenTestResult;
@@ -51,6 +52,16 @@ export interface CardInput {
 }
 
 export function renderCard(input: CardInput): string {
+  if (input.empty) {
+    return [
+      `## ${input.folder}, empty backup, owner: ${input.owner}`,
+      "",
+      "This backup folder is empty. The drill could read it, but it holds no files. An empty backup may mean the job never ran or the folder was moved; this is a finding, not a pass and not a could-not-check.",
+      `Next drill due: ${addMonths(DRILL_DATE, 1)}.`,
+      "Receipts: file-agent listed this folder and it returned no files.",
+      ""
+    ].join("\n");
+  }
   const lines: string[] = [];
   const title = input.grade === null ? "could not check" : `grade ${input.grade}`;
   lines.push(`## ${input.folder}, ${title}, owner: ${input.owner}`);
@@ -130,6 +141,7 @@ function daysLabel(days: number): string {
 function stopLines(input: CardInput): string {
   const stop = input.silentStop;
   if (stop.reason === "not-applicable-archive") return "- Silent stop: archive folder, stop check not applicable.";
+  if (stop.reason === "seasonal") return "- Silent stop: seasonal folder, stop check deferred until its next active period.";
   if (stop.reason === "insufficient-history") return "- Silent stop: insufficient history to know this folder's rhythm; no stop flag.";
   if (stop.flag) {
     return `- Silent stop: ${formatCadence(stop.cadencePerWeek)} before; the newest file is ${daysLabel(stop.gapDays)} old.`;

@@ -13,7 +13,8 @@ Rules decide the grade; the highest-severity finding wins. If a folder could not
 | C | A silent stop was confirmed by the rule in references/signals.md. |
 | B | At most 3 sampled files failed the open test, or a tier 1 set under 100 files exists in only one copy. |
 | A | None of the above fired. |
-| could not check | The folder could not be read, holds no files, or the whole sample could not be attempted. |
+| could not check | The folder could not be read, or the whole sample could not be attempted. |
+| empty backup | The folder was read but holds no files. Reported as an empty backup — a finding, since an empty backup may mean the job never ran or the folder moved — never "could not check" and never graded A. |
 
 Examples: a phone folder that stopped 74 days ago is C. A document folder with 3 dead files is B. A shared folder holding 412 one-copy family photos is D. A folder where 214 files were renamed within one afternoon is F.
 

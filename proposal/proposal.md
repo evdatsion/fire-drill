@@ -8,7 +8,7 @@ Fire Drill tests whether your NAS could really bring back what matters. It opens
 
 ## The problem
 
-A NAS is bought so nothing gets lost, yet almost nobody tests it: 46% of backup users have never completed a test restore (Macrium survey, 2017). Phone uploads stop when the app sits in the background and nobody notices. People then delete photos from their phones, so for many family pictures the NAS is the only copy; one failed pool, theft or ransomware ends them. The newest deleter is software: on Feb 7, 2026 an agent asked to tidy a desktop deleted 15,000 family photos (reported Feb 13, 2026). A second copy is the only safety net; nobody knows which files lack one.
+A NAS is bought so nothing gets lost, yet almost nobody tests it: 46% of backup users have never completed a test restore (Macrium survey, 2017). Phone uploads stop when the app sits in the background and nobody notices. People then delete photos from their phones, so for many family pictures the NAS is the only copy; one failed pool, theft or ransomware ends them. The newest deleter is software: on Feb 7, 2026 an agent asked to tidy a desktop deleted 15,000 family photos. A second copy is the only safety net, and nobody knows which files lack one.
 
 ## What Fire Drill does
 
@@ -24,15 +24,15 @@ Read-only except the copy and the saved report, each behind your confirmation. A
 
 ## Why this wins
 
-Backup tools check job status and hashes; neither proves a photo still opens, nor knows your daughter's pictures from screenshots. The UGOS experts do, on the device. The Markdown-only skill package passes the official kit checker with zero errors, warnings and notes; every capability is confirmed in the kit catalog with line numbers in the repository. Written rules decide every grade; the experts only gather evidence.
+Backup tools check job status and hashes; neither proves a photo still opens, nor knows your daughter's pictures from screenshots. The UGOS experts do, on the device. The Markdown-only package passes the official kit checker with zero errors, warnings and notes; every capability is confirmed in the kit catalog with line numbers. Written rules decide every grade; the experts only gather evidence.
 
-A 20-case Drill Pack with four healthy controls scores 20/20 on the reference simulator; the bench ran on that simulator on a laptop, not on a NAS. Rules, simulator and results are public.
+A 20-case Drill Pack with four healthy controls scores 20/20 on the reference simulator — a laptop, not a NAS. An adversarial holdout then stress-tested the rules: 1/6 before fixes, 6/6 after; a second holdout scores 2/4, with both gaps named. Rules, simulator and results are public.
 
 ![Sample Report Card on synthetic data](../docs/screenshots/report-card.png)
 
 ## Known gaps
 
-The check is sample-based, not a full scan. Ransomware signs are warnings, not guarantees. UGOS exposes no USB listing, snapshots or scheduler, so the drill runs on request with a next-drill reminder, the copy targets a folder you pick, and vanished files point only to recovery routes that exist.
+The check samples, not a full scan; ransomware signs are warnings, not guarantees. UGOS exposes no USB listing, snapshots or scheduler, so the drill runs on request with a reminder, the copy targets a folder you pick, and vanished files point to recovery routes that exist.
 
 ## Finalist day
 

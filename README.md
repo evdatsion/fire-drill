@@ -82,6 +82,18 @@ The on-device AI opens and classifies files. **Rules decide** every flag and gra
 
 The bench runs on the reference simulator (`sim/`), which applies the same written rules to synthetic folders on a laptop. It has not run on a NAS yet. Raw output: [bench/results.json](bench/results.json). Reproduce: `npm run bench`.
 
+### Holdout validation
+
+The Drill Pack was written alongside the rules, so on its own it cannot show whether the rules generalise. Two adversarial holdout packs, written by a reviewer who did not tune the rules against them, test that:
+
+| Pack | Score | What it is |
+|---|---|---|
+| Design pack | 20/20 | the 20 cases above |
+| Blind pack v1 | 6/6 | 6 cases the rules had never seen (1/6 before the fixes, 6/6 after) |
+| Blind pack v2 | 2/4 | 4 further cases, written after the fixes to probe them |
+
+Blind v2's remaining misses are named in Known gaps below. Per-case output is in [bench/results.json](bench/results.json).
+
 ## At a glance
 
 - ✅ Markdown-only Skill package, passes the official kit checker
@@ -136,7 +148,8 @@ docs/                      design, diagrams, results, screenshots
 - UGOS exposes no USB listing: the copy goes to a folder you pick, and Fire Drill says it cannot verify that folder is an external drive.
 - No snapshot access and no recycle-bin listing: vanished files point only to recovery routes that exist (restore by path, the triage copy).
 - No scheduler: drills run when asked, and every Report Card ends with "next drill due".
-- Ransomware signs are warnings, not guaranteed detection.
+- Ransomware signs are warnings, not guaranteed detection. Encryption that changes files in place without renaming them can evade all three tells on a folder under 100 files (blind pack v2).
+- A folder with a long natural cadence (for example a yearly holiday camera) is exempted from the stop check only when the user marks it seasonal; the rule does not yet infer that cadence from the arrival pattern alone (blind pack v2).
 - Not yet run on a NAS.
 
 ## Safety and privacy

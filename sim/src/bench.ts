@@ -116,12 +116,12 @@ function scoreBlindCase(spec: CaseSpec): BlindCaseResult {
   };
 }
 
-function runBlind(): { pack: string; version: string; matched: number; total: number; cases: BlindCaseResult[] } | null {
-  const packPath = path.join(repoRoot, "bench", "blind-pack", "expected.json");
+function runBlindPack(dirName: string, label: string): { pack: string; version: string; matched: number; total: number; cases: BlindCaseResult[] } | null {
+  const packPath = path.join(repoRoot, "bench", dirName, "expected.json");
   if (!existsSync(packPath)) return null;
   const pack = JSON.parse(readFileSync(packPath, "utf8")) as { version: string; cases: CaseSpec[] };
   const cases = pack.cases.map(scoreBlindCase);
-  return { pack: "blind", version: pack.version, matched: cases.filter((item) => item.matched).length, total: cases.length, cases };
+  return { pack: label, version: pack.version, matched: cases.filter((item) => item.matched).length, total: cases.length, cases };
 }
 
 function removeSpread(files: FolderTree["files"], removeCount: number, total: number): FolderTree["files"] {
@@ -206,7 +206,8 @@ export function runBench(): object {
 
   const cases = pack.cases.map(scoreCase);
   const twoDrill = runTwoDrill();
-  const blindPack = runBlind();
+  const blindPack = runBlindPack("blind-pack", "blind-v1");
+  const blindPackV2 = runBlindPack("blind-pack-v2", "blind-v2");
 
   const score = cases.filter((item) => item.matched).length;
   const healthyFlagged = cases.filter((item) => item.family === "healthy").filter((item) => item.actual.flags.length > 0).length;
@@ -237,6 +238,7 @@ export function runBench(): object {
     cases,
     twoDrill,
     blindPack,
+    blindPackV2,
     summary: {
       score,
       total: cases.length,
@@ -255,12 +257,15 @@ function main(): void {
   const summary = (results as { summary: { score: number; total: number; healthyFlagged: number; twoDrillMatched: boolean } }).summary;
   console.log(`bench: ${summary.score}/${summary.total} cases matched, ${summary.healthyFlagged} healthy flagged, two-drill ${summary.twoDrillMatched ? "matched" : "FAILED"}`);
   console.log(`results written to ${path.relative(process.cwd(), outPath)}`);
-  const blind = (results as { blindPack: { matched: number; total: number; cases: { id: string; matched: boolean }[] } | null }).blindPack;
-  if (blind) {
-    const misses = blind.cases.filter((item) => !item.matched).map((item) => item.id);
-    console.log(`blind pack (adversarial holdout): ${blind.matched}/${blind.total} matched${misses.length > 0 ? `; misses: ${misses.join(", ")}` : ""}`);
+  const typed = results as { blindPack: PackResult; blindPackV2: PackResult };
+  for (const [label, pack] of [["blind v1", typed.blindPack], ["blind v2", typed.blindPackV2]] as const) {
+    if (!pack) continue;
+    const misses = pack.cases.filter((item) => !item.matched).map((item) => item.id);
+    console.log(`${label} (adversarial holdout): ${pack.matched}/${pack.total} matched${misses.length > 0 ? `; misses: ${misses.join(", ")}` : ""}`);
   }
 }
+
+type PackResult = { matched: number; total: number; cases: { id: string; matched: boolean }[] } | null;
 
 if (process.argv[1] !== undefined && fileURLToPath(import.meta.url) === path.resolve(process.argv[1])) {
   main();

@@ -1247,7 +1247,7 @@
       "family": "healthy",
       "name": "Vacant-Archive",
       "owner": "Dad",
-      "summary": "An empty folder; it must be reported as could not check, never graded A.",
+      "summary": "A folder the drill could not read (the access failed); it must be reported as could not check, never graded A.",
       "fixture": {
         "folders": [
           "Vacant-Archive"
@@ -1255,7 +1255,8 @@
         "scope": {
           "role": "device-backup",
           "device": "Dad's laptop",
-          "originalsOnDevice": true
+          "originalsOnDevice": true,
+          "accessible": false
         },
         "files": [],
         "history": {
