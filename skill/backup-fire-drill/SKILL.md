@@ -17,7 +17,7 @@ A folder it could not read gets the verdict "could not check" and never a grade.
 
 # Required input
 
-- Which folders to drill and whose they are, for example "Mom's iPhone". If the user is not sure, list the top-level shared folders and let the user pick, then remember the mapping for the next drill.
+- Which folders to drill and whose they are, for example "Mom's iPhone". For each folder, whether it is a device backup or an archive, and whether the originals still live on the device. If the user is not sure, list the top-level shared folders and let the user pick, then remember the mapping for the next drill.
 - Where the previous Report Card and manifest are, if a previous drill ran.
 - For the optional copy step: the destination folder, chosen by the user.
 
