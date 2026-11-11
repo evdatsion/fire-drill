@@ -1,7 +1,7 @@
 // The bench: runs the same written rules over the 20 synthetic Drill Pack
 // cases plus the two-drill vanish sequence, and writes bench/results.json.
 // Everything here is deterministic; no wall-clock time is used.
-import { readFileSync, writeFileSync, mkdirSync } from "node:fs";
+import { readFileSync, writeFileSync, mkdirSync, existsSync } from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 import type { CaseSpec, FolderTree } from "./types.js";
@@ -62,6 +62,66 @@ function scoreCase(spec: CaseSpec): CaseResult {
     checks,
     report: drill.report
   };
+}
+
+// Blind pack: an adversarial holdout scored against the shipped rules. It
+// checks the same fields as the design pack AND the single-copy count and the
+// silent-stop gap, because some holdout misses are count-level and flags+grade
+// alone would hide them. The rules are untouched; this only measures them.
+interface BlindCaseResult {
+  id: string;
+  family: string;
+  name: string;
+  expected: { flags: string[]; grade: string | null; verdict: string | null; singleCopyFiles: number | null; silentStopGapDays: number | null };
+  actual: { flags: string[]; grade: string | null; verdict: string | null; singleCopyFiles: number; silentStopGapDays: number; silentStopFlag: boolean };
+  checks: Record<string, boolean>;
+  matched: boolean;
+  report: string;
+}
+
+function scoreBlindCase(spec: CaseSpec): BlindCaseResult {
+  const tree: FolderTree = generateFolder(spec.id, spec.fixture);
+  const drill = runDrill([tree], { owner: spec.owner });
+  const finding = drill.folders[0];
+  const e = spec.expected;
+  const expectedVerdict = e.verdict ?? null;
+
+  const checks: Record<string, boolean> = {};
+  checks.flagSet =
+    drill.verdict === expectedVerdict &&
+    drill.flags.length === e.flags.length &&
+    e.flags.every((flag) => drill.flags.includes(flag)) &&
+    (drill.flags.length > 0) === e.flagged;
+  checks.grade = drill.grade === e.grade;
+  const haystack = drill.report.toLowerCase();
+  checks.reportLines = e.reportMustContain.every((line) => haystack.includes(line.toLowerCase()));
+  checks.mustNotFlag = !e.mustNotFlag.some((flag) => drill.flags.includes(flag));
+
+  const actualSingle = finding?.singleCopy.count ?? 0;
+  const actualGap = finding ? Math.round(finding.silentStop.gapDays) : 0;
+  const expectedSingle = e.singleCopy?.files ?? null;
+  const expectedGap = e.silentStop?.newestFileGapDays ?? null;
+  if (expectedSingle !== null) checks.singleCopyCount = actualSingle === expectedSingle;
+  if (expectedGap !== null) checks.silentStopGap = actualGap === expectedGap;
+
+  return {
+    id: spec.id,
+    family: spec.family,
+    name: spec.name,
+    expected: { flags: e.flags, grade: e.grade, verdict: expectedVerdict, singleCopyFiles: expectedSingle, silentStopGapDays: expectedGap },
+    actual: { flags: drill.flags, grade: drill.grade, verdict: drill.verdict, singleCopyFiles: actualSingle, silentStopGapDays: actualGap, silentStopFlag: finding?.silentStop.flag ?? false },
+    checks,
+    matched: Object.values(checks).every((value) => value === true),
+    report: drill.report
+  };
+}
+
+function runBlind(): { pack: string; version: string; matched: number; total: number; cases: BlindCaseResult[] } | null {
+  const packPath = path.join(repoRoot, "bench", "blind-pack", "expected.json");
+  if (!existsSync(packPath)) return null;
+  const pack = JSON.parse(readFileSync(packPath, "utf8")) as { version: string; cases: CaseSpec[] };
+  const cases = pack.cases.map(scoreBlindCase);
+  return { pack: "blind", version: pack.version, matched: cases.filter((item) => item.matched).length, total: cases.length, cases };
 }
 
 function removeSpread(files: FolderTree["files"], removeCount: number, total: number): FolderTree["files"] {
@@ -146,6 +206,7 @@ export function runBench(): object {
 
   const cases = pack.cases.map(scoreCase);
   const twoDrill = runTwoDrill();
+  const blindPack = runBlind();
 
   const score = cases.filter((item) => item.matched).length;
   const healthyFlagged = cases.filter((item) => item.family === "healthy").filter((item) => item.actual.flags.length > 0).length;
@@ -175,6 +236,7 @@ export function runBench(): object {
     target: { minScore: 18, maxHealthyFlagged: 0 },
     cases,
     twoDrill,
+    blindPack,
     summary: {
       score,
       total: cases.length,
@@ -193,6 +255,11 @@ function main(): void {
   const summary = (results as { summary: { score: number; total: number; healthyFlagged: number; twoDrillMatched: boolean } }).summary;
   console.log(`bench: ${summary.score}/${summary.total} cases matched, ${summary.healthyFlagged} healthy flagged, two-drill ${summary.twoDrillMatched ? "matched" : "FAILED"}`);
   console.log(`results written to ${path.relative(process.cwd(), outPath)}`);
+  const blind = (results as { blindPack: { matched: number; total: number; cases: { id: string; matched: boolean }[] } | null }).blindPack;
+  if (blind) {
+    const misses = blind.cases.filter((item) => !item.matched).map((item) => item.id);
+    console.log(`blind pack (adversarial holdout): ${blind.matched}/${blind.total} matched${misses.length > 0 ? `; misses: ${misses.join(", ")}` : ""}`);
+  }
 }
 
 if (process.argv[1] !== undefined && fileURLToPath(import.meta.url) === path.resolve(process.argv[1])) {
