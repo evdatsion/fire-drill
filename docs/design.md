@@ -1,6 +1,6 @@
 # Design notes
 
-Fire Drill is a monthly restore drill run by the NAS on itself, ranked by what you could never get back. It checks the folders people actually use as backups, not backup jobs it cannot see. Every finding carries a receipt: the file path, the expert that opened it, and the outcome.
+Fire Drill is a restore drill the NAS runs when the user asks, with a "next drill due" reminder on every Report Card, ranked by what you could never get back. It checks the folders people actually use as backups, not backup jobs it cannot see. Every finding carries a receipt: the file path, the expert that opened it, and the outcome.
 
 ## Pipeline
 

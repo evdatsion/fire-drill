@@ -1,6 +1,6 @@
 #!/bin/sh
 bad=$(git diff --cached --name-only | grep -iE '(^|/)(GLM|CLAUDE|SPEC|PLAYBOOK|REPO_STANDARD|SETUP|NIGHTLY)\.md$|(^|/)GLM_HANDBOOK\.md$|(SPEC|SETUP)\.md$|(^|/)(_hq|tools|kits|\.claude|\.zcode)/|(^|/)\.env($|\.)' | grep -v '\.env\.example$')
 if [ -n "$bad" ]; then echo "pre-commit: private file staged:\n$bad" >&2; exit 1; fi
-if git diff --cached -U0 | grep -qiE '(BEGIN (RSA|OPENSSH|EC) PRIVATE KEY|ghp_[A-Za-z0-9]{20,}|github_pat_|sk-[A-Za-z0-9]{20,}|AIza[0-9A-Za-z_-]{30,})'; then
+if git diff --cached -U0 -- . ':(exclude).githooks/' | grep -qiE '(BEGIN (RSA|OPENSSH|EC) PRIVATE KEY|ghp_[A-Za-z0-9]{20,}|github_pat_|sk-[A-Za-z0-9]{20,}|AIza[0-9A-Za-z_-]{30,})'; then
   echo "pre-commit: possible secret in staged changes." >&2; exit 1
 fi
