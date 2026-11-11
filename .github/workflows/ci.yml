@@ -20,7 +20,7 @@ jobs:
       - run: npm run typecheck
       - run: npm test
       - run: npm run bench
-      - name: Score gate (target: at least 18/20, zero healthy flagged, two-drill matched)
+      - name: "Score gate: at least 18/20, zero healthy flagged, two-drill matched"
         run: |
           node -e 'const r=require("./bench/results.json");const s=r.summary;if(s.score<r.target.minScore||s.healthyFlagged>r.target.maxHealthyFlagged||!s.twoDrillMatched){console.error("score gate failed:",JSON.stringify(s));process.exit(1)}console.log("score gate ok:",s.score+"/"+s.total,s.healthyFlagged+" healthy flagged")'
       - name: Rendered docs match results.json
