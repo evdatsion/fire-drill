@@ -28,6 +28,8 @@ interface CaseResult {
   actual: { flags: string[]; grade: string | null; verdict: string | null };
   matched: boolean;
   checks: CheckResult;
+  /** The simulator's rendered Report Card for this case. */
+  report: string;
 }
 
 function scoreCase(spec: CaseSpec): CaseResult {
@@ -57,7 +59,8 @@ function scoreCase(spec: CaseSpec): CaseResult {
     expected: { flags: expected.flags, grade: expected.grade, verdict: expectedVerdict },
     actual: { flags: drill.flags, grade: drill.grade, verdict: actualVerdict },
     matched: Object.values(checks).every((value) => value === true),
-    checks
+    checks,
+    report: drill.report
   };
 }
 
