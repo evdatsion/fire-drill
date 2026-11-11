@@ -1,5 +1,5 @@
 <p align="center">
-  <!-- <img src="docs/screenshots/hero.gif" alt="Fire Drill: a drill runs in Uliya chat and the Report Card builds itself" width="820"> -->
+  <img src="docs/screenshots/hero.gif" alt="Fire Drill: a drill runs in Uliya chat and the Report Card builds itself" width="820">
 </p>
 
 <h1 align="center">Fire Drill</h1>
@@ -16,7 +16,7 @@ A UGOS Skill for UGREEN AI NAS that finds the photos that exist only once, copie
 </p>
 
 <p align="center">
-  <a href="DEMO_URL"><b>Try the demo</b></a> ·
+  <a href="https://evdatsion.github.io/fire-drill/"><b>Try the demo</b></a> ·
   <a href="docs/DIAGRAMS.md">Diagrams</a> ·
   <a href="docs/results.md">Results</a> ·
   <a href="docs/design.md">Design and decisions</a>
@@ -35,7 +35,7 @@ Entry for the **UGREEN Hackathon 2026 on AI NAS**, Open Innovation track.
 ## What a drill shows you
 
 <p align="center">
-  <!-- <img src="docs/screenshots/report-card.png" alt="Sample Report Card on synthetic data" width="720"> -->
+  <img src="docs/screenshots/report-card.png" alt="Sample Report Card on synthetic data" width="720">
 </p>
 
 | Order | Finding | What Fire Drill does about it |

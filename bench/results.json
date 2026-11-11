@@ -31,7 +31,8 @@
         "grade": true,
         "reportLines": true,
         "mustNotFlag": true
-      }
+      },
+      "report": "## Mom-iPhone, grade C, owner: Mom\n\n- Open the UGREEN app on the device weekly, or enable Background App Refresh, so uploads resume.\n\nFindings:\n- Vanished since last drill: first drill; nothing to compare yet.\n- Single copy: none found.\n- Silent stop: about 42 files a week before; the newest file is 74 days old.\n- Open test: opened 30 of 30 sampled files; 30 opened, 0 failed, 0 looked wrong.\nNext drill due: 2026-12-12.\nReceipts: every finding above lists its file path, the expert action that produced it, and the outcome.\n"
     },
     {
       "id": "stopped-02",
@@ -57,7 +58,8 @@
         "grade": true,
         "reportLines": true,
         "mustNotFlag": true
-      }
+      },
+      "report": "## Dad-Laptop, grade C, owner: Dad\n\n- The copy job has not run since 2026-08-14. Start the copy job and confirm the newest file moves.\n\nFindings:\n- Vanished since last drill: first drill; nothing to compare yet.\n- Single copy: none found.\n- Silent stop: about 3.0 files a week before; the newest file is 90 days old.\n- Open test: opened 20 of 20 sampled files; 20 opened, 0 failed, 0 looked wrong.\nNext drill due: 2026-12-12.\nReceipts: every finding above lists its file path, the expert action that produced it, and the outcome.\n"
     },
     {
       "id": "stopped-03",
@@ -83,7 +85,8 @@
         "grade": true,
         "reportLines": true,
         "mustNotFlag": true
-      }
+      },
+      "report": "## Projects-Share, grade C, owner: Dad\n\n- The copy job has not run since 2026-06-15. Start the copy job and confirm the newest file moves.\n\nFindings:\n- Vanished since last drill: first drill; nothing to compare yet.\n- Single copy: none found.\n- Silent stop: about 1.2 files a month before; the newest file is 150 days old.\n- Open test: opened 6 of 6 sampled files; 6 opened, 0 failed, 0 looked wrong.\nNext drill due: 2026-12-12.\nReceipts: every finding above lists its file path, the expert action that produced it, and the outcome.\n"
     },
     {
       "id": "stopped-04",
@@ -109,7 +112,8 @@
         "grade": true,
         "reportLines": true,
         "mustNotFlag": true
-      }
+      },
+      "report": "## Cam-Footage, grade C, owner: Home\n\n- The copy job has not run since 2026-10-22. Start the copy job and confirm the newest file moves.\n\nFindings:\n- Vanished since last drill: first drill; nothing to compare yet.\n- Single copy: none found.\n- Silent stop: about 210 files a week before; the newest file is 21 days old.\n- Open test: opened 10 of 10 sampled files; 10 opened, 0 failed, 0 looked wrong.\nNext drill due: 2026-12-12.\nReceipts: every finding above lists its file path, the expert action that produced it, and the outcome.\n"
     },
     {
       "id": "broken-01",
@@ -135,7 +139,8 @@
         "grade": true,
         "reportLines": true,
         "mustNotFlag": true
-      }
+      },
+      "report": "## Dad-Laptop-Photos, grade B, owner: Dad\n\n- Re-upload the broken files from the device; delete them only after a good copy exists.\n\nFindings:\n- Vanished since last drill: first drill; nothing to compare yet.\n- Single copy: none found.\n- Silent stop: insufficient history to know this folder's rhythm; no stop flag.\n- Open test: opened 2 of 3 sampled files; 2 opened, 1 failed, 0 looked wrong.\n  - Dad-Laptop-Photos/2019/IMG_20190817_0042.jpg (1550000 bytes): fails-to-open\nNext drill due: 2026-12-12.\nReceipts: every finding above lists its file path, the expert action that produced it, and the outcome.\n"
     },
     {
       "id": "broken-02",
@@ -161,7 +166,8 @@
         "grade": true,
         "reportLines": true,
         "mustNotFlag": true
-      }
+      },
+      "report": "## Dad-Laptop-Docs, grade B, owner: Dad\n\n- Re-upload the broken files from the device; delete them only after a good copy exists.\n\nFindings:\n- Vanished since last drill: first drill; nothing to compare yet.\n- Single copy: none found.\n- Silent stop: insufficient history to know this folder's rhythm; no stop flag.\n- Open test: opened 2 of 3 sampled files; 2 opened, 1 failed, 0 looked wrong.\n  - Dad-Laptop-Docs/manuals/warranty_scan.pdf (0 bytes): fails-to-open\nNext drill due: 2026-12-12.\nReceipts: every finding above lists its file path, the expert action that produced it, and the outcome.\n"
     },
     {
       "id": "broken-03",
@@ -187,7 +193,8 @@
         "grade": true,
         "reportLines": true,
         "mustNotFlag": true
-      }
+      },
+      "report": "## Kid-Tablet-Downloads, grade B, owner: Kid\n\n- Re-upload the broken files from the device; delete them only after a good copy exists.\n\nFindings:\n- Vanished since last drill: first drill; nothing to compare yet.\n- Single copy: none found.\n- Silent stop: insufficient history to know this folder's rhythm; no stop flag.\n- Open test: opened 2 of 3 sampled files; 2 opened, 1 failed, 0 looked wrong.\n  - Kid-Tablet-Downloads/holiday_list.jpg (2100 bytes): fails-to-open\nNext drill due: 2026-12-12.\nReceipts: every finding above lists its file path, the expert action that produced it, and the outcome.\n"
     },
     {
       "id": "broken-04",
@@ -213,7 +220,8 @@
         "grade": true,
         "reportLines": true,
         "mustNotFlag": true
-      }
+      },
+      "report": "## Old-Photos, grade B, owner: Mom\n\n- Re-upload the broken files from the device; delete them only after a good copy exists.\n\nFindings:\n- Vanished since last drill: first drill; nothing to compare yet.\n- Single copy: none found.\n- Silent stop: insufficient history to know this folder's rhythm; no stop flag.\n- Open test: opened 2 of 3 sampled files; 2 opened, 1 failed, 0 looked wrong.\n  - Old-Photos/2021/IMG_0007.heic (2900000 bytes): fails-to-open\nNext drill due: 2026-12-12.\nReceipts: every finding above lists its file path, the expert action that produced it, and the outcome.\n"
     },
     {
       "id": "broken-05",
@@ -239,7 +247,8 @@
         "grade": true,
         "reportLines": true,
         "mustNotFlag": true
-      }
+      },
+      "report": "## Shared-Videos, grade B, owner: Family\n\n- Re-upload the broken files from the device; delete them only after a good copy exists.\n\nFindings:\n- Vanished since last drill: first drill; nothing to compare yet.\n- Single copy: none found.\n- Silent stop: insufficient history to know this folder's rhythm; no stop flag.\n- Open test: opened 2 of 3 sampled files; 2 opened, 1 failed, 0 looked wrong.\n  - Shared-Videos/2022/holiday_2022.mp4 (480000000 bytes): fails-to-open\nNext drill due: 2026-12-12.\nReceipts: every finding above lists its file path, the expert action that produced it, and the outcome.\n"
     },
     {
       "id": "single-01",
@@ -265,7 +274,8 @@
         "grade": true,
         "reportLines": true,
         "mustNotFlag": true
-      }
+      },
+      "report": "## Shared-Reunion, grade D, owner: Family\n\n- This set exists only here: copy it to a second location you pick.\n\nFindings:\n- Vanished since last drill: first drill; nothing to compare yet.\n- Single copy: 412 irreplaceable photos (about 41 GB) exist in only one copy, starting with Shared-Reunion/2015/IMG_5101.jpg.\n- Silent stop: archive folder, stop check not applicable.\n- Open test: opened 30 of 30 sampled files; 30 opened, 0 failed, 0 looked wrong.\nNext drill due: 2026-12-12.\nReceipts: every finding above lists its file path, the expert action that produced it, and the outcome.\n"
     },
     {
       "id": "single-02",
@@ -291,7 +301,8 @@
         "grade": true,
         "reportLines": true,
         "mustNotFlag": true
-      }
+      },
+      "report": "## Mom-Baby-Year, grade D, owner: Mom\n\n- This set exists only here: copy it to a second location you pick.\n\nFindings:\n- Vanished since last drill: first drill; nothing to compare yet.\n- Single copy: 1050 irreplaceable photos (about 12 GB) exist in only one copy, starting with Mom-Baby-Year/2025-02/IMG_9001.jpg.\n- Silent stop: archive folder, stop check not applicable.\n- Open test: opened 30 of 30 sampled files; 30 opened, 0 failed, 0 looked wrong.\nNext drill due: 2026-12-12.\nReceipts: every finding above lists its file path, the expert action that produced it, and the outcome.\n"
     },
     {
       "id": "single-03",
@@ -317,7 +328,8 @@
         "grade": true,
         "reportLines": true,
         "mustNotFlag": true
-      }
+      },
+      "report": "## Grandma-Scans, grade B, owner: Family\n\n- This set exists only here: copy it to a second location you pick.\n\nFindings:\n- Vanished since last drill: first drill; nothing to compare yet.\n- Single copy: 88 irreplaceable photos (about 2 GB) exist in only one copy, starting with Grandma-Scans/1962 scan 04.jpg.\n- Silent stop: archive folder, stop check not applicable.\n- Open test: opened 30 of 30 sampled files; 30 opened, 0 failed, 0 looked wrong.\nNext drill due: 2026-12-12.\nReceipts: every finding above lists its file path, the expert action that produced it, and the outcome.\n"
     },
     {
       "id": "single-04",
@@ -343,7 +355,8 @@
         "grade": true,
         "reportLines": true,
         "mustNotFlag": true
-      }
+      },
+      "report": "## Wedding-2019, grade D, owner: Family\n\n- This set exists only here: copy it to a second location you pick.\n\nFindings:\n- Vanished since last drill: first drill; nothing to compare yet.\n- Single copy: 260 irreplaceable photos (about 26 GB) exist in only one copy, starting with Wedding-2019/DSC_0811.jpg.\n- Silent stop: archive folder, stop check not applicable.\n- Open test: opened 30 of 30 sampled files; 30 opened, 0 failed, 0 looked wrong.\nNext drill due: 2026-12-12.\nReceipts: every finding above lists its file path, the expert action that produced it, and the outcome.\n"
     },
     {
       "id": "ransom-01",
@@ -369,7 +382,8 @@
         "grade": true,
         "reportLines": true,
         "mustNotFlag": true
-      }
+      },
+      "report": "## Kid-Tablet-Photos, grade F, owner: Kid\n\n- Stop syncing, do not delete anything, and check before the next backup overwrites good copies.\n\nFindings:\n- Vanished since last drill: first drill; nothing to compare yet.\n- Ransomware tell: rename burst, 214 files now end in .locked within about 6 hours; that extension had no history in this folder.\n- Single copy: none found.\n- Silent stop: none; the newest file is 1 day old.\n- Open test: opened 18 of 30 sampled files; 18 opened, 12 failed, 0 looked wrong.\n  - Kid-Tablet-Photos/burst-00018.locked (4686560 bytes): fails-to-open\n  - Kid-Tablet-Photos/burst-00061.locked (3309824 bytes): fails-to-open\n  - Kid-Tablet-Photos/burst-00067.locked (3358179 bytes): fails-to-open\n  - Kid-Tablet-Photos/burst-00081.locked (3524536 bytes): fails-to-open\n  - Kid-Tablet-Photos/burst-00119.locked (4540890 bytes): fails-to-open\n  - Kid-Tablet-Photos/burst-00165.locked (3175146 bytes): fails-to-open\n  - Kid-Tablet-Photos/burst-00173.locked (4665624 bytes): fails-to-open\n  - Kid-Tablet-Photos/burst-00192.locked (4027052 bytes): fails-to-open\n  - Kid-Tablet-Photos/burst-00194.locked (3237574 bytes): fails-to-open\n  - Kid-Tablet-Photos/burst-00199.locked (4158819 bytes): fails-to-open\n  - Kid-Tablet-Photos/burst-00200.locked (3151157 bytes): fails-to-open\n  - Kid-Tablet-Photos/burst-00205.locked (3868760 bytes): fails-to-open\nNext drill due: 2026-12-12.\nReceipts: every finding above lists its file path, the expert action that produced it, and the outcome.\n"
     },
     {
       "id": "ransom-02",
@@ -395,7 +409,8 @@
         "grade": true,
         "reportLines": true,
         "mustNotFlag": true
-      }
+      },
+      "report": "## Office-Docs, grade F, owner: Dad\n\n- Stop syncing, do not delete anything, and check before the next backup overwrites good copies.\n\nFindings:\n- Vanished since last drill: first drill; nothing to compare yet.\n- Ransomware tell: rename burst, 380 files now end in .enc within about 8 hours; that extension had no history in this folder.\n- Single copy: none found.\n- Silent stop: none; the newest file is 1 day old.\n- Open test: opened 13 of 20 sampled files; 13 opened, 7 failed, 0 looked wrong.\n  - Office-Docs/contracts/2026-03.pdf.enc (185000 bytes): fails-to-open\n  - Office-Docs/burst-00076.enc (81809 bytes): fails-to-open\n  - Office-Docs/burst-00124.enc (94301 bytes): fails-to-open\n  - Office-Docs/burst-00193.enc (109887 bytes): fails-to-open\n  - Office-Docs/burst-00206.enc (81038 bytes): fails-to-open\n  - Office-Docs/burst-00234.enc (79724 bytes): fails-to-open\n  - Office-Docs/burst-00377.enc (77987 bytes): fails-to-open\nNext drill due: 2026-12-12.\nReceipts: every finding above lists its file path, the expert action that produced it, and the outcome.\n"
     },
     {
       "id": "ransom-03",
@@ -421,7 +436,8 @@
         "grade": true,
         "reportLines": true,
         "mustNotFlag": true
-      }
+      },
+      "report": "## Phone-Dump, grade F, owner: Mom\n\n- Stop syncing, do not delete anything, and check before the next backup overwrites good copies.\n\nFindings:\n- Vanished since last drill: first drill; nothing to compare yet.\n- Ransomware tell: rename burst, 180 files now end in .crypt within about 10 hours; that extension had no history in this folder.\n- Single copy: none found.\n- Silent stop: none; the newest file is 1 day old.\n- Open test: opened 20 of 30 sampled files; 20 opened, 10 failed, 0 looked wrong.\n  - Phone-Dump/burst-00000.crypt (3303808 bytes): fails-to-open\n  - Phone-Dump/burst-00001.crypt (4734224 bytes): fails-to-open\n  - Phone-Dump/burst-00027.crypt (3812675 bytes): fails-to-open\n  - Phone-Dump/burst-00057.crypt (3459330 bytes): fails-to-open\n  - Phone-Dump/burst-00090.crypt (3653231 bytes): fails-to-open\n  - Phone-Dump/burst-00118.crypt (4052283 bytes): fails-to-open\n  - Phone-Dump/burst-00134.crypt (4004058 bytes): fails-to-open\n  - Phone-Dump/burst-00139.crypt (3428440 bytes): fails-to-open\n  - Phone-Dump/burst-00144.crypt (4618329 bytes): fails-to-open\n  - Phone-Dump/burst-00157.crypt (4540779 bytes): fails-to-open\nNext drill due: 2026-12-12.\nReceipts: every finding above lists its file path, the expert action that produced it, and the outcome.\n"
     },
     {
       "id": "healthy-01",
@@ -443,7 +459,8 @@
         "grade": true,
         "reportLines": true,
         "mustNotFlag": true
-      }
+      },
+      "report": "## Photos-Active, grade A, owner: Mom\n\nFindings:\n- Vanished since last drill: first drill; nothing to compare yet.\n- Single copy: none found.\n- Silent stop: none; the newest file is 2 days old.\n- Open test: opened 31 of 31 sampled files; 31 opened, 0 failed, 0 looked wrong.\nNext drill due: 2026-12-12.\nReceipts: every finding above lists its file path, the expert action that produced it, and the outcome.\n"
     },
     {
       "id": "healthy-02",
@@ -465,7 +482,8 @@
         "grade": true,
         "reportLines": true,
         "mustNotFlag": true
-      }
+      },
+      "report": "## Docs-Quarterly, grade A, owner: Dad\n\nFindings:\n- Vanished since last drill: first drill; nothing to compare yet.\n- Single copy: none found.\n- Silent stop: insufficient history to know this folder's rhythm; no stop flag.\n- Open test: opened 3 of 3 sampled files; 3 opened, 0 failed, 0 looked wrong.\nNext drill due: 2026-12-12.\nReceipts: every finding above lists its file path, the expert action that produced it, and the outcome.\n"
     },
     {
       "id": "healthy-03",
@@ -487,7 +505,8 @@
         "grade": true,
         "reportLines": true,
         "mustNotFlag": true
-      }
+      },
+      "report": "## Screenshots-Only, grade A, owner: Kid\n\nFindings:\n- Vanished since last drill: first drill; nothing to compare yet.\n- Single copy: none found.\n- Silent stop: none; the newest file is 8 days old.\n- Open test: opened 10 of 10 sampled files; 10 opened, 0 failed, 0 looked wrong.\nNext drill due: 2026-12-12.\nReceipts: every finding above lists its file path, the expert action that produced it, and the outcome.\n"
     },
     {
       "id": "healthy-04",
@@ -509,7 +528,8 @@
         "grade": true,
         "reportLines": true,
         "mustNotFlag": true
-      }
+      },
+      "report": "## Vacant-Archive, could not check, owner: Dad\n\nFindings:\n- Vanished since last drill: first drill; nothing to compare yet.\n- Single copy: none found.\n- Silent stop: insufficient history to know this folder's rhythm; no stop flag.\n- Open test: opened 0 of 0 sampled files; 0 opened, 0 failed, 0 looked wrong.\nNext drill due: 2026-12-12.\nReceipts: every finding above lists its file path, the expert action that produced it, and the outcome.\n"
     }
   ],
   "twoDrill": {

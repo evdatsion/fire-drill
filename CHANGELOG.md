@@ -1,5 +1,14 @@
 # Changelog
 
+## 0.3.0 - 2026-11-12
+
+- Added the demo app (demo/, Vite + React + Tailwind): it replays bench/results.json over the 20-case Drill Pack, labelled "simulation on synthetic data" on every screen. Deployed to GitHub Pages from the gh-pages branch.
+- Added per-case Report Cards to bench/results.json so the demo computes nothing; the bench itself is unchanged (20/20, zero healthy flagged, two-drill matched).
+- Added docs/screenshots/hero.gif and docs/screenshots/report-card.png, captured from the demo.
+- Added the proposal: proposal/proposal.md (494 words, script-counted, CI gate), two figures, and proposal.pdf.
+- Added scripts/build-package-zip.mjs: builds the submission ZIP from skill/backup-fire-drill/ only, deterministic, re-checked by the kit checker (0/0/0) in CI.
+- EXIF capture dates for the silent-stop rule are deferred to finalist day (needs real NAS metadata); they stay on the README roadmap.
+
 ## 0.2.0 - 2026-11-12
 
 - Added the reference simulator (sim/, TypeScript, Node >= 20): it expands the Drill Pack fixtures into synthetic folder trees and applies the written rules from the skill references.

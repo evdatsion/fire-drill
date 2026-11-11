@@ -1,0 +1,34 @@
+name: demo-deploy
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "demo/**"
+      - "bench/results.json"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  gh-pages:
+    name: Build demo and publish gh-pages
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - run: npm --prefix demo ci
+      - run: npm --prefix demo run build
+      - name: Publish demo/dist to the gh-pages branch
+        run: |
+          cd demo/dist
+          git init -q
+          git config user.name "${{ github.repository_owner }}"
+          git config user.email "${{ github.repository_owner }}@users.noreply.github.com"
+          git add -A
+          git commit -q -m "deploy demo"
+          git push -q -f "https://x-access-token:${{ github.token }}@github.com/${{ github.repository }}.git" HEAD:gh-pages
+          echo "published to gh-pages"
