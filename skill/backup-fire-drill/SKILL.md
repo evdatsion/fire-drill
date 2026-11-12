@@ -1,6 +1,6 @@
 ---
 name: backup-fire-drill
-description: Fire Drill checks whether your backups could really bring back what matters. It finds backups that silently stopped, opens a sample of photos and documents on the device to confirm they still load, counts irreplaceable photos that have only one copy, and grades each source folder A to F in one report card. Use when the user asks is my backup okay, says run a fire drill, or wants a pre-flight check before letting another skill reorganize photos.
+description: Fire Drill checks whether your backups could really bring back what matters. It finds backups that silently stopped, opens a sample of photos and documents on the device to confirm they still load, counts irreplaceable photos that have only one copy, and grades each source folder A to F in one report card. After you confirm, it copies just that set to a folder you pick. Use when the user asks is my backup okay, says run a fire drill, or wants a pre-flight check before letting another skill reorganize photos.
 ---
 
 # Goal
