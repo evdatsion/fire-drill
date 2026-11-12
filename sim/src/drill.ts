@@ -16,6 +16,7 @@ export interface FolderFindings {
   device: string;
   grade: Grade | null;
   couldNotCheck: boolean;
+  empty: boolean;
   flags: Flag[];
   silentStop: ReturnType<typeof silentStop>;
   openTest: ReturnType<typeof openTest>;
@@ -49,10 +50,12 @@ export function runDrill(folders: FolderTree[], options: DrillOptions): DrillRes
       : undefined;
 
     const flags: Flag[] = [];
-    let couldNotCheck = false;
-    if (folder.files.length === 0) {
-      couldNotCheck = true;
-    } else {
+    // Unreadable (the read failed) is "could not check"; readable but empty is
+    // a distinct finding — an empty backup may mean the job never ran.
+    const unreadable = folder.scope.accessible === false;
+    const empty = !unreadable && folder.files.length === 0;
+    const couldNotCheck = unreadable || empty;
+    if (!couldNotCheck) {
       if (tells.fired) flags.push("ransomware-tell");
       else if (open.failed > 0) flags.push("broken-file");
       if (stop.flag) flags.push("silent-stop");
@@ -73,6 +76,7 @@ export function runDrill(folders: FolderTree[], options: DrillOptions): DrillRes
       device: folder.scope.device,
       grade,
       couldNotCheck,
+      empty,
       flags,
       silentStop: stop,
       openTest: open,
@@ -83,7 +87,7 @@ export function runDrill(folders: FolderTree[], options: DrillOptions): DrillRes
   });
 
   const flags = [...new Set(findings.flatMap((finding) => finding.flags))];
-  const allEmpty = findings.every((finding) => finding.couldNotCheck);
+  const allUnreadable = findings.every((finding) => finding.couldNotCheck && !finding.empty);
   const grades = findings.map((finding) => finding.grade).filter((grade): grade is Grade => grade !== null);
   const order: Grade[] = ["F", "D", "C", "B", "A"];
   const grade = grades.length > 0 ? order.find((candidate) => grades.includes(candidate)) ?? null : null;
@@ -95,6 +99,7 @@ export function runDrill(folders: FolderTree[], options: DrillOptions): DrillRes
         owner: options.owner,
         device: finding.device,
         grade: finding.grade,
+        empty: finding.empty,
         flags: finding.flags,
         silentStop: finding.silentStop,
         openTest: finding.openTest,
@@ -110,7 +115,7 @@ export function runDrill(folders: FolderTree[], options: DrillOptions): DrillRes
     folders: findings,
     flags,
     grade,
-    verdict: allEmpty ? "could-not-check" : null,
+    verdict: allUnreadable ? "could-not-check" : null,
     report
   };
 }

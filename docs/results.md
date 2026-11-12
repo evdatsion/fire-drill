@@ -46,6 +46,26 @@ Drill 1 on the 1000-photo folder saved a manifest of 1000 irreplaceable files. D
 - Large drop, 387 files missing: reported with last-seen folder and the mass-change warning.
 - Small drop, 5 files missing: reported without the mass-change warning.
 
+## Blind pack v1 (adversarial holdout), after fixes: 6/6
+
+| Case | Matched | Expected | Actual |
+|---|---|---|---|
+| blind-seasonal-01 | yes | A | A |
+| blind-exif-02 | yes | B, broken-file | B, broken-file |
+| blind-dupe-03 | yes | B, single-copy | B, single-copy |
+| blind-masking-04 | yes | C, silent-stop, single-copy | C, silent-stop, single-copy |
+| blind-empty-05 | yes | - | - |
+| blind-partial-rename-06 | yes | F, ransomware-tell | F, ransomware-tell |
+
+## Blind pack v2 (post-fix holdout): 2/4
+
+| Case | Matched | Expected | Actual |
+|---|---|---|---|
+| v2-two-cluster-seasonal-01 | NO | A | C, silent-stop |
+| v2-dupe-d-boundary-02 | yes | B, single-copy | B, single-copy |
+| v2-inplace-encrypt-03 | NO | F, ransomware-tell | C, broken-file |
+| v2-mixed-healthy-tier1-04 | yes | B, single-copy | B, single-copy |
+
 ## Reproduce
 
 ```

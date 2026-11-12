@@ -16,16 +16,16 @@ function healthy(name: string, daysAgo: number): SynthFile {
   return { path: `Test/${name}.jpg`, kind: "photo-people", sizeBytes: 10, mtimeDays: daysAgo };
 }
 
-test("rename burst: an unfamiliar extension on 20+ files inside 48 hours fires", () => {
-  const files = Array.from({ length: 25 }, (_, i) => locked(`f${i}`, 1));
+test("rename burst: an unfamiliar extension on 10+ files inside 48 hours fires", () => {
+  const files = Array.from({ length: 10 }, (_, i) => locked(`f${i}`, 1));
   const result = ransomwareTells(tree(files));
   assert.ok(result.renameBurst);
   assert.equal(result.renameBurst.extension, ".locked");
   assert.equal(result.fired, true);
 });
 
-test("rename burst failure path: 19 files is below the threshold", () => {
-  const files = [...Array.from({ length: 19 }, (_, i) => locked(`f${i}`, 1)), healthy("keep", 100)];
+test("rename burst failure path: 9 files is below the threshold", () => {
+  const files = [...Array.from({ length: 9 }, (_, i) => locked(`f${i}`, 1)), healthy("keep", 100)];
   assert.equal(ransomwareTells(tree(files)).renameBurst, undefined);
 });
 

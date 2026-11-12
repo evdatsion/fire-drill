@@ -1,0 +1,127 @@
+{
+  "pack": "blind-v2",
+  "version": "1.0.0",
+  "description": "Second adversarial holdout, written after the Night 5 fixes to probe them at their edges. Oracle = correct result; scored against the fixed rules. No rule changes in this pack.",
+  "cases": [
+    {
+      "id": "v2-two-cluster-seasonal-01",
+      "family": "seasonal-inference",
+      "name": "Reunion-Photos",
+      "owner": "Dad",
+      "summary": "Two annual reunion clusters about a year apart; the folder is NOT marked seasonal, so the rule must infer the yearly cadence from the arrivals.",
+      "fixture": {
+        "folders": ["Reunion-Photos"],
+        "scope": { "role": "device-backup", "device": "Dad's camera", "originalsOnDevice": true },
+        "files": [
+          { "path": "Reunion-Photos/2024/IMG_8001.jpg", "kind": "photo-people", "sizeBytes": 4100000, "mtimeDaysAgo": 715 },
+          { "path": "Reunion-Photos/2024/IMG_8002.jpg", "kind": "photo-people", "sizeBytes": 4000000, "mtimeDaysAgo": 710 },
+          { "path": "Reunion-Photos/2024/IMG_8003.jpg", "kind": "photo-people", "sizeBytes": 4050000, "mtimeDaysAgo": 705 },
+          { "path": "Reunion-Photos/2024/IMG_8004.jpg", "kind": "photo-people", "sizeBytes": 4020000, "mtimeDaysAgo": 700 },
+          { "path": "Reunion-Photos/2025/IMG_9001.jpg", "kind": "photo-people", "sizeBytes": 4100000, "mtimeDaysAgo": 355 },
+          { "path": "Reunion-Photos/2025/IMG_9002.jpg", "kind": "photo-people", "sizeBytes": 4000000, "mtimeDaysAgo": 350 },
+          { "path": "Reunion-Photos/2025/IMG_9003.jpg", "kind": "photo-people", "sizeBytes": 4050000, "mtimeDaysAgo": 345 },
+          { "path": "Reunion-Photos/2025/IMG_9004.jpg", "kind": "photo-people", "sizeBytes": 4020000, "mtimeDaysAgo": 340 }
+        ],
+        "history": { "totalFiles": 8, "endDaysAgo": 340, "oldestDaysAgo": 715 }
+      },
+      "expected": {
+        "flagged": false,
+        "flags": [],
+        "grade": "A",
+        "reportMustContain": ["grade a"],
+        "mustNotFlag": ["silent-stop", "single-copy", "broken-file", "ransomware-tell", "vanished"]
+      }
+    },
+    {
+      "id": "v2-dupe-d-boundary-02",
+      "family": "single-copy-boundary",
+      "name": "Grandparents-Archive",
+      "owner": "Shared",
+      "summary": "Ninety-nine unique irreplaceable photos plus one genuine duplicate pair; the single-copy count must stay 99 (grade B), not tip to 100+ (grade D).",
+      "fixture": {
+        "folders": ["Grandparents-Archive"],
+        "scope": { "role": "device-backup", "device": "Shared NAS folder", "originalsOnDevice": false },
+        "files": [
+          { "path": "Grandparents-Archive/Originals/scan_01.jpg", "kind": "photo-people", "sizeBytes": 4200000, "mtimeDaysAgo": 60, "contentId": "GDUP" },
+          { "path": "Grandparents-Archive/Backup/scan_01_copy.jpg", "kind": "photo-people", "sizeBytes": 4200000, "mtimeDaysAgo": 55, "contentId": "GDUP" }
+        ],
+        "history": { "totalFiles": 101, "endDaysAgo": 2, "oldestDaysAgo": 120 }
+      },
+      "expected": {
+        "flagged": true,
+        "flags": ["single-copy"],
+        "grade": "B",
+        "singleCopy": { "files": 99 },
+        "reportMustContain": ["grade b"],
+        "mustNotFlag": ["silent-stop", "broken-file", "ransomware-tell", "vanished"]
+      }
+    },
+    {
+      "id": "v2-inplace-encrypt-03",
+      "family": "ransom-inplace",
+      "name": "Phone-Photos",
+      "owner": "Mom",
+      "summary": "Twelve photos encrypted in place within a day, keeping the .jpg extension, in a folder under 100 files; every current tell misses it.",
+      "fixture": {
+        "folders": ["Phone-Photos"],
+        "scope": { "role": "device-backup", "device": "Mom's phone", "originalsOnDevice": true },
+        "files": [
+          { "path": "Phone-Photos/Camera/enc-00.jpg", "kind": "photo-people", "sizeBytes": 3800000, "mtimeDaysAgo": 1, "problem": "encrypted-inplace" },
+          { "path": "Phone-Photos/Camera/enc-01.jpg", "kind": "photo-people", "sizeBytes": 3800000, "mtimeDaysAgo": 1, "problem": "encrypted-inplace" },
+          { "path": "Phone-Photos/Camera/enc-02.jpg", "kind": "photo-people", "sizeBytes": 3800000, "mtimeDaysAgo": 1, "problem": "encrypted-inplace" },
+          { "path": "Phone-Photos/Camera/enc-03.jpg", "kind": "photo-people", "sizeBytes": 3800000, "mtimeDaysAgo": 1, "problem": "encrypted-inplace" },
+          { "path": "Phone-Photos/Camera/enc-04.jpg", "kind": "photo-people", "sizeBytes": 3800000, "mtimeDaysAgo": 1, "problem": "encrypted-inplace" },
+          { "path": "Phone-Photos/Camera/enc-05.jpg", "kind": "photo-people", "sizeBytes": 3800000, "mtimeDaysAgo": 1, "problem": "encrypted-inplace" },
+          { "path": "Phone-Photos/Camera/enc-06.jpg", "kind": "photo-people", "sizeBytes": 3800000, "mtimeDaysAgo": 1, "problem": "encrypted-inplace" },
+          { "path": "Phone-Photos/Camera/enc-07.jpg", "kind": "photo-people", "sizeBytes": 3800000, "mtimeDaysAgo": 1, "problem": "encrypted-inplace" },
+          { "path": "Phone-Photos/Camera/enc-08.jpg", "kind": "photo-people", "sizeBytes": 3800000, "mtimeDaysAgo": 1, "problem": "encrypted-inplace" },
+          { "path": "Phone-Photos/Camera/enc-09.jpg", "kind": "photo-people", "sizeBytes": 3800000, "mtimeDaysAgo": 1, "problem": "encrypted-inplace" },
+          { "path": "Phone-Photos/Camera/enc-10.jpg", "kind": "photo-people", "sizeBytes": 3800000, "mtimeDaysAgo": 1, "problem": "encrypted-inplace" },
+          { "path": "Phone-Photos/Camera/enc-11.jpg", "kind": "photo-people", "sizeBytes": 3800000, "mtimeDaysAgo": 1, "problem": "encrypted-inplace" },
+          { "path": "Phone-Photos/Camera/IMG_5001.jpg", "kind": "photo-people", "sizeBytes": 3700000, "mtimeDaysAgo": 4 },
+          { "path": "Phone-Photos/Camera/IMG_5002.jpg", "kind": "photo-people", "sizeBytes": 3600000, "mtimeDaysAgo": 6 }
+        ],
+        "history": { "totalFiles": 40, "endDaysAgo": 1, "oldestDaysAgo": 120 }
+      },
+      "expected": {
+        "flagged": true,
+        "flags": ["ransomware-tell"],
+        "grade": "F",
+        "reportMustContain": ["stop syncing"],
+        "mustNotFlag": ["silent-stop", "single-copy", "broken-file", "vanished"]
+      }
+    },
+    {
+      "id": "v2-mixed-healthy-tier1-04",
+      "family": "per-tier-control",
+      "name": "Active-Family",
+      "owner": "Family",
+      "summary": "Recent people photos plus a large old pile of screenshots; the per-tier stop check must not flag a healthy tier-1 set.",
+      "fixture": {
+        "folders": ["Active-Family"],
+        "scope": { "role": "device-backup", "device": "Family tablet", "originalsOnDevice": false },
+        "files": [
+          { "path": "Active-Family/Screens/SS_01.png", "kind": "screenshot", "sizeBytes": 900000, "mtimeDaysAgo": 3 },
+          { "path": "Active-Family/Screens/SS_02.png", "kind": "screenshot", "sizeBytes": 880000, "mtimeDaysAgo": 5 },
+          { "path": "Active-Family/People/IMG_4001.jpg", "kind": "photo-people", "sizeBytes": 3800000, "mtimeDaysAgo": 2 },
+          { "path": "Active-Family/People/IMG_4002.jpg", "kind": "photo-people", "sizeBytes": 3700000, "mtimeDaysAgo": 5 },
+          { "path": "Active-Family/People/IMG_4003.jpg", "kind": "photo-people", "sizeBytes": 3900000, "mtimeDaysAgo": 8 },
+          { "path": "Active-Family/People/IMG_4004.jpg", "kind": "photo-people", "sizeBytes": 3600000, "mtimeDaysAgo": 11 },
+          { "path": "Active-Family/People/IMG_4005.jpg", "kind": "photo-people", "sizeBytes": 3850000, "mtimeDaysAgo": 14 },
+          { "path": "Active-Family/People/IMG_4006.jpg", "kind": "photo-people", "sizeBytes": 3750000, "mtimeDaysAgo": 17 },
+          { "path": "Active-Family/People/IMG_4007.jpg", "kind": "photo-people", "sizeBytes": 3950000, "mtimeDaysAgo": 20 },
+          { "path": "Active-Family/People/IMG_4008.jpg", "kind": "photo-people", "sizeBytes": 3650000, "mtimeDaysAgo": 23 }
+        ],
+        "history": { "totalFiles": 300, "endDaysAgo": 3, "oldestDaysAgo": 150 }
+      },
+      "expected": {
+        "flagged": true,
+        "flags": ["single-copy"],
+        "grade": "B",
+        "singleCopy": { "files": 8 },
+        "reportMustContain": ["grade b"],
+        "mustNotFlag": ["silent-stop", "broken-file", "ransomware-tell", "vanished"]
+      }
+    }
+  ]
+}

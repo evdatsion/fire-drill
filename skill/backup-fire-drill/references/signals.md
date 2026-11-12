@@ -6,7 +6,7 @@ Every flag in the report comes from a written rule here. The experts gather numb
 
 Purpose: catch a backup that quietly stopped, without punishing folders that only get occasional files or that are static archives.
 
-The rule runs on folders recorded as device backups in the scope mapping (the drill asks which folders are backups, whose they are, and whether the originals still live on the device). Archive folders are static by nature: the card says "archive folder: stop check not applicable" instead of a flag.
+The rule runs on folders recorded as device backups in the scope mapping (the drill asks which folders are backups, whose they are, and whether the originals still live on the device). Archive folders are static by nature: the card says "archive folder: stop check not applicable" instead of a flag. Folders the user marks as seasonal (a holiday camera, a yearly event folder) are deferred the same way: a single active season cannot establish a yearly cadence from one cluster of arrivals, so the card says "seasonal folder: stop check deferred" instead of a flag.
 
 For each device-backup folder:
 
@@ -14,6 +14,7 @@ For each device-backup folder:
 - rhythm = the median of the gaps between the 12 arrivals that precede that newest file, when at least 3 such gaps exist.
 - With fewer than 3 gaps the folder's rhythm is unknown: the verdict is "insufficient evidence", the folder is not flagged, and the report says so plainly.
 - Flag "silent-stop" when gap >= max(3 x rhythm, 14 days).
+- The same test also runs on the irreplaceable (tier-1) arrivals on their own. A folder that keeps receiving low-value files (screenshots, downloads) while its people photos stopped is flagged on the tier-1 arrivals, so a busy folder cannot hide that the photos themselves stopped. A folder that is only tier-1 is already covered by the folder-wide test.
 
 The report states the cadence and the gap as the receipt, for example: "used to add about 40 photos a week; the newest file is 74 days old." A folder with a 40-day gap and a 90-day rhythm is not flagged; a folder with a 74-day gap and a weekly rhythm is.
 
@@ -46,7 +47,7 @@ Any one of these triggers the urgent warning at the top of the report: "stop syn
 
 | Tell | Rule |
 |---|---|
-| Rename burst | An extension that appears on 0 files in the folder's 12-week history now appears on at least 20 files within one 48-hour window. |
+| Rename burst | An extension that appears on 0 files in the folder's 12-week history now appears on at least 10 files within one 48-hour window. The threshold is deliberately low so a partial or interrupted rename still raises the warning early, when acting first matters most. |
 | Mass change | At least 100 files modified inside one 60-minute window. |
 | Open-fail spike | At least 25% of the newest 100 files fail the open test while the older sample mostly passes. |
 
@@ -66,7 +67,7 @@ Recovery routes are named only when they exist on this NAS: the recycle bin, if 
 |---|---|
 | Silent stop | gap >= max(3 x rhythm, 14 days), device-backup folders with a known rhythm |
 | Sample sizes | 30 tier 1, 20 tier 2, 10 tier 3 per source |
-| Rename burst | 0 in history, then >= 20 files in 48 h |
+| Rename burst | 0 in history, then >= 10 files in 48 h |
 | Mass change | >= 100 files in 60 min |
 | Open-fail spike | >= 25% of newest 100 fail |
 | Vanish mass drop | >= 100 files or >= 20% of a tier 1 folder in 1 day |

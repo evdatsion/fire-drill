@@ -41,6 +41,15 @@ function readmeAfter() {
   for (const { pattern, replacement } of rows) text = text.replace(pattern, replacement);
   text = text.replace(/(\| \*\*Total\*\* \| \*\*20\*\* \| \*\*)(?:BENCH_SCORE|\d+\/\d+)(\*\* \|)/, `$1${score}$2`);
 
+  // Holdout packs. The v1 before-fix score (1/6) was recorded on Night 4 (PR #4).
+  const v1 = results.blindPack ? `${results.blindPack.matched}/${results.blindPack.total}` : "n/a";
+  const v2 = results.blindPackV2 ? `${results.blindPackV2.matched}/${results.blindPackV2.total}` : "n/a";
+  const v1Before = "1/6";
+  text = text.replace(/(\| Design pack \| )(?:DESIGN_SCORE|\d+\/\d+)( \|)/, `$1${score}$2`);
+  text = text.replace(/(\| Blind pack v1 \| )(?:BLIND_V1_SCORE|\d+\/\d+)( \|)/, `$1${v1}$2`);
+  text = text.replace(/\((?:BLIND_V1_BEFORE|\d+\/\d+) before the fixes, (?:BLIND_V1_SCORE|\d+\/\d+) after\)/, `(${v1Before} before the fixes, ${v1} after)`);
+  text = text.replace(/(\| Blind pack v2 \| )(?:BLIND_V2_SCORE|\d+\/\d+)( \|)/, `$1${v2}$2`);
+
   if (existsSync("docs/diagrams/bench-results.svg")) {
     text = text.replace(
       /<!-- (<img src="docs\/diagrams\/bench-results\.svg"[^>]*>) -->/,
@@ -113,6 +122,22 @@ function resultsMdAfter() {
   lines.push(`- Large drop, 387 files missing: ${results.twoDrill.largeDrop.matched ? "reported with last-seen folder and the mass-change warning" : "FAILED"}.`);
   lines.push(`- Small drop, 5 files missing: ${results.twoDrill.smallDrop.matched ? "reported without the mass-change warning" : "FAILED"}.`);
   lines.push("");
+  const blindSection = (pack, title) => {
+    if (!pack) return;
+    lines.push(`## ${title}: ${pack.matched}/${pack.total}`);
+    lines.push("");
+    lines.push("| Case | Matched | Expected | Actual |");
+    lines.push("|---|---|---|---|");
+    for (const item of pack.cases) {
+      const exp = `${item.expected.grade ?? item.expected.verdict ?? "-"}${item.expected.flags.length > 0 ? `, ${item.expected.flags.join(", ")}` : ""}`;
+      const act = `${item.actual.grade ?? item.actual.verdict ?? "-"}${item.actual.flags.length > 0 ? `, ${item.actual.flags.join(", ")}` : ""}`;
+      lines.push(`| ${item.id} | ${item.matched ? "yes" : "NO"} | ${exp} | ${act} |`);
+    }
+    lines.push("");
+  };
+  blindSection(results.blindPack, "Blind pack v1 (adversarial holdout), after fixes");
+  blindSection(results.blindPackV2, "Blind pack v2 (post-fix holdout)");
+
   lines.push("## Reproduce");
   lines.push("");
   lines.push("```");

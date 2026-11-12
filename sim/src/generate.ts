@@ -51,9 +51,12 @@ export function generateFolder(caseId: string, fixture: Fixture): FolderTree {
     kind: spec.kind,
     sizeBytes: spec.sizeBytes,
     mtimeDays: spec.mtimeDaysAgo,
-    ...(spec.problem !== undefined ? { problem: spec.problem } : {})
+    ...(spec.problem !== undefined ? { problem: spec.problem } : {}),
+    ...(spec.contentId !== undefined ? { contentId: spec.contentId } : {})
   }));
-  for (const file of files) file.contentId = file.path;
+  // Identical content is declared with an explicit contentId; otherwise each
+  // file's content is unique, modelled as its path.
+  for (const file of files) if (file.contentId === undefined) file.contentId = file.path;
 
   const burstCount = fixture.burst?.count ?? 0;
   const bulkCount = fixture.history.totalFiles - fixture.files.length - burstCount;

@@ -549,9 +549,9 @@
     }
   },
   "blindPack": {
-    "pack": "blind",
+    "pack": "blind-v1",
     "version": "1.0.0",
-    "matched": 1,
+    "matched": 6,
     "total": 6,
     "cases": [
       {
@@ -566,23 +566,21 @@
           "silentStopGapDays": null
         },
         "actual": {
-          "flags": [
-            "silent-stop"
-          ],
-          "grade": "C",
+          "flags": [],
+          "grade": "A",
           "verdict": null,
           "singleCopyFiles": 0,
-          "silentStopGapDays": 330,
-          "silentStopFlag": true
+          "silentStopGapDays": 0,
+          "silentStopFlag": false
         },
         "checks": {
-          "flagSet": false,
-          "grade": false,
-          "reportLines": false,
-          "mustNotFlag": false
+          "flagSet": true,
+          "grade": true,
+          "reportLines": true,
+          "mustNotFlag": true
         },
-        "matched": false,
-        "report": "## Holiday-Camera, grade C, owner: Dad\n\n- The copy job has not run since 2025-12-17. Start the copy job and confirm the newest file moves.\n\nFindings:\n- Vanished since last drill: first drill; nothing to compare yet.\n- Single copy: none found.\n- Silent stop: about 25 files a week before; the newest file is 330 days old.\n- Open test: opened 30 of 30 sampled files; 30 opened, 0 failed, 0 looked wrong.\nNext drill due: 2026-12-12.\nReceipts: every finding above lists its file path, the expert action that produced it, and the outcome.\n"
+        "matched": true,
+        "report": "## Holiday-Camera, grade A, owner: Dad\n\nFindings:\n- Vanished since last drill: first drill; nothing to compare yet.\n- Single copy: none found.\n- Silent stop: seasonal folder, stop check deferred until its next active period.\n- Open test: opened 30 of 30 sampled files; 30 opened, 0 failed, 0 looked wrong.\nNext drill due: 2026-12-12.\nReceipts: every finding above lists its file path, the expert action that produced it, and the outcome.\n"
       },
       {
         "id": "blind-exif-02",
@@ -635,7 +633,7 @@
           ],
           "grade": "B",
           "verdict": null,
-          "singleCopyFiles": 5,
+          "singleCopyFiles": 3,
           "silentStopGapDays": 5,
           "silentStopFlag": false
         },
@@ -644,10 +642,10 @@
           "grade": true,
           "reportLines": true,
           "mustNotFlag": true,
-          "singleCopyCount": false
+          "singleCopyCount": true
         },
-        "matched": false,
-        "report": "## Shared-Family, grade B, owner: Shared\n\n- This set exists only here: copy it to a second location you pick.\n\nFindings:\n- Vanished since last drill: first drill; nothing to compare yet.\n- Single copy: 5 irreplaceable photos (about 0 GB) exist in only one copy, starting with Shared-Family/Trip2019/IMG_1000.jpg.\n- Silent stop: none; the newest file is 5 days old.\n- Open test: opened 5 of 5 sampled files; 5 opened, 0 failed, 0 looked wrong.\nNext drill due: 2026-12-12.\nReceipts: every finding above lists its file path, the expert action that produced it, and the outcome.\n"
+        "matched": true,
+        "report": "## Shared-Family, grade B, owner: Shared\n\n- This set exists only here: copy it to a second location you pick.\n\nFindings:\n- Vanished since last drill: first drill; nothing to compare yet.\n- Single copy: 3 irreplaceable photos (about 0 GB) exist in only one copy, starting with Shared-Family/Trip2019/IMG_1000.jpg.\n- Silent stop: none; the newest file is 5 days old.\n- Open test: opened 5 of 5 sampled files; 5 opened, 0 failed, 0 looked wrong.\nNext drill due: 2026-12-12.\nReceipts: every finding above lists its file path, the expert action that produced it, and the outcome.\n"
       },
       {
         "id": "blind-masking-04",
@@ -665,24 +663,25 @@
         },
         "actual": {
           "flags": [
+            "silent-stop",
             "single-copy"
           ],
-          "grade": "B",
+          "grade": "C",
           "verdict": null,
           "singleCopyFiles": 8,
-          "silentStopGapDays": 2,
-          "silentStopFlag": false
+          "silentStopGapDays": 115,
+          "silentStopFlag": true
         },
         "checks": {
-          "flagSet": false,
-          "grade": false,
-          "reportLines": false,
+          "flagSet": true,
+          "grade": true,
+          "reportLines": true,
           "mustNotFlag": true,
           "singleCopyCount": true,
-          "silentStopGap": false
+          "silentStopGap": true
         },
-        "matched": false,
-        "report": "## Family-Dump, grade B, owner: Family\n\n- This set exists only here: copy it to a second location you pick.\n\nFindings:\n- Vanished since last drill: first drill; nothing to compare yet.\n- Single copy: 8 irreplaceable photos (about 0 GB) exist in only one copy, starting with Family-Dump/People/IMG_3001.jpg.\n- Silent stop: none; the newest file is 2 days old.\n- Open test: opened 18 of 18 sampled files; 18 opened, 0 failed, 0 looked wrong.\nNext drill due: 2026-12-12.\nReceipts: every finding above lists its file path, the expert action that produced it, and the outcome.\n"
+        "matched": true,
+        "report": "## Family-Dump, grade C, owner: Family\n\n- Open the UGREEN app on the device weekly, or enable Background App Refresh, so uploads resume.\n- This set exists only here: copy it to a second location you pick.\n\nFindings:\n- Vanished since last drill: first drill; nothing to compare yet.\n- Single copy: 8 irreplaceable photos (about 0 GB) exist in only one copy, starting with Family-Dump/People/IMG_3001.jpg.\n- Silent stop: about 2.8 files a week before; the newest file is 115 days old.\n- Open test: opened 18 of 18 sampled files; 18 opened, 0 failed, 0 looked wrong.\nNext drill due: 2026-12-12.\nReceipts: every finding above lists its file path, the expert action that produced it, and the outcome.\n"
       },
       {
         "id": "blind-empty-05",
@@ -698,19 +697,19 @@
         "actual": {
           "flags": [],
           "grade": null,
-          "verdict": "could-not-check",
+          "verdict": null,
           "singleCopyFiles": 0,
           "silentStopGapDays": 0,
           "silentStopFlag": false
         },
         "checks": {
-          "flagSet": false,
+          "flagSet": true,
           "grade": true,
-          "reportLines": false,
+          "reportLines": true,
           "mustNotFlag": true
         },
-        "matched": false,
-        "report": "## Grandma-Phone, could not check, owner: Grandma\n\nFindings:\n- Vanished since last drill: first drill; nothing to compare yet.\n- Single copy: none found.\n- Silent stop: insufficient history to know this folder's rhythm; no stop flag.\n- Open test: opened 0 of 0 sampled files; 0 opened, 0 failed, 0 looked wrong.\nNext drill due: 2026-12-12.\nReceipts: every finding above lists its file path, the expert action that produced it, and the outcome.\n"
+        "matched": true,
+        "report": "## Grandma-Phone, empty backup, owner: Grandma\n\nThis backup folder is empty. The drill could read it, but it holds no files. An empty backup may mean the job never ran or the folder was moved; this is a finding, not a pass and not a could-not-check.\nNext drill due: 2026-12-12.\nReceipts: file-agent listed this folder and it returned no files.\n"
       },
       {
         "id": "blind-partial-rename-06",
@@ -727,9 +726,112 @@
         },
         "actual": {
           "flags": [
-            "broken-file"
+            "ransomware-tell"
+          ],
+          "grade": "F",
+          "verdict": null,
+          "singleCopyFiles": 0,
+          "silentStopGapDays": 1,
+          "silentStopFlag": false
+        },
+        "checks": {
+          "flagSet": true,
+          "grade": true,
+          "reportLines": true,
+          "mustNotFlag": true
+        },
+        "matched": true,
+        "report": "## Kid-Tablet, grade F, owner: Kid\n\n- Stop syncing, do not delete anything, and check before the next backup overwrites good copies.\n\nFindings:\n- Vanished since last drill: first drill; nothing to compare yet.\n- Ransomware tell: rename burst, 18 files now end in .enc within about 17 hours; that extension had no history in this folder.\n- Single copy: none found.\n- Silent stop: none; the newest file is 1 day old.\n- Open test: opened 27 of 30 sampled files; 27 opened, 3 failed, 0 looked wrong.\n  - Kid-Tablet/burst-00007.enc (4717047 bytes): fails-to-open\n  - Kid-Tablet/burst-00009.enc (3747336 bytes): fails-to-open\n  - Kid-Tablet/burst-00017.enc (3495390 bytes): fails-to-open\nNext drill due: 2026-12-12.\nReceipts: every finding above lists its file path, the expert action that produced it, and the outcome.\n"
+      }
+    ]
+  },
+  "blindPackV2": {
+    "pack": "blind-v2",
+    "version": "1.0.0",
+    "matched": 2,
+    "total": 4,
+    "cases": [
+      {
+        "id": "v2-two-cluster-seasonal-01",
+        "family": "seasonal-inference",
+        "name": "Reunion-Photos",
+        "expected": {
+          "flags": [],
+          "grade": "A",
+          "verdict": null,
+          "singleCopyFiles": null,
+          "silentStopGapDays": null
+        },
+        "actual": {
+          "flags": [
+            "silent-stop"
+          ],
+          "grade": "C",
+          "verdict": null,
+          "singleCopyFiles": 0,
+          "silentStopGapDays": 340,
+          "silentStopFlag": true
+        },
+        "checks": {
+          "flagSet": false,
+          "grade": false,
+          "reportLines": false,
+          "mustNotFlag": false
+        },
+        "matched": false,
+        "report": "## Reunion-Photos, grade C, owner: Dad\n\n- The copy job has not run since 2025-12-07. Start the copy job and confirm the newest file moves.\n\nFindings:\n- Vanished since last drill: first drill; nothing to compare yet.\n- Single copy: none found.\n- Silent stop: about 0.6 files a month before; the newest file is 340 days old.\n- Open test: opened 8 of 8 sampled files; 8 opened, 0 failed, 0 looked wrong.\nNext drill due: 2026-12-12.\nReceipts: every finding above lists its file path, the expert action that produced it, and the outcome.\n"
+      },
+      {
+        "id": "v2-dupe-d-boundary-02",
+        "family": "single-copy-boundary",
+        "name": "Grandparents-Archive",
+        "expected": {
+          "flags": [
+            "single-copy"
           ],
           "grade": "B",
+          "verdict": null,
+          "singleCopyFiles": 99,
+          "silentStopGapDays": null
+        },
+        "actual": {
+          "flags": [
+            "single-copy"
+          ],
+          "grade": "B",
+          "verdict": null,
+          "singleCopyFiles": 99,
+          "silentStopGapDays": 2,
+          "silentStopFlag": false
+        },
+        "checks": {
+          "flagSet": true,
+          "grade": true,
+          "reportLines": true,
+          "mustNotFlag": true,
+          "singleCopyCount": true
+        },
+        "matched": true,
+        "report": "## Grandparents-Archive, grade B, owner: Shared\n\n- This set exists only here: copy it to a second location you pick.\n\nFindings:\n- Vanished since last drill: first drill; nothing to compare yet.\n- Single copy: 99 irreplaceable photos (about 0 GB) exist in only one copy, starting with Grandparents-Archive/bulk-00000.jpg.\n- Silent stop: none; the newest file is 2 days old.\n- Open test: opened 30 of 30 sampled files; 30 opened, 0 failed, 0 looked wrong.\nNext drill due: 2026-12-12.\nReceipts: every finding above lists its file path, the expert action that produced it, and the outcome.\n"
+      },
+      {
+        "id": "v2-inplace-encrypt-03",
+        "family": "ransom-inplace",
+        "name": "Phone-Photos",
+        "expected": {
+          "flags": [
+            "ransomware-tell"
+          ],
+          "grade": "F",
+          "verdict": null,
+          "singleCopyFiles": null,
+          "silentStopGapDays": null
+        },
+        "actual": {
+          "flags": [
+            "broken-file"
+          ],
+          "grade": "C",
           "verdict": null,
           "singleCopyFiles": 0,
           "silentStopGapDays": 1,
@@ -742,7 +844,40 @@
           "mustNotFlag": false
         },
         "matched": false,
-        "report": "## Kid-Tablet, grade B, owner: Kid\n\n- Re-upload the broken files from the device; delete them only after a good copy exists.\n\nFindings:\n- Vanished since last drill: first drill; nothing to compare yet.\n- Single copy: none found.\n- Silent stop: none; the newest file is 1 day old.\n- Open test: opened 27 of 30 sampled files; 27 opened, 3 failed, 0 looked wrong.\n  - Kid-Tablet/burst-00007.enc (4717047 bytes): fails-to-open\n  - Kid-Tablet/burst-00009.enc (3747336 bytes): fails-to-open\n  - Kid-Tablet/burst-00017.enc (3495390 bytes): fails-to-open\nNext drill due: 2026-12-12.\nReceipts: every finding above lists its file path, the expert action that produced it, and the outcome.\n"
+        "report": "## Phone-Photos, grade C, owner: Mom\n\n- Re-upload the broken files from the device; delete them only after a good copy exists.\n\nFindings:\n- Vanished since last drill: first drill; nothing to compare yet.\n- Single copy: none found.\n- Silent stop: none; the newest file is 1 day old.\n- Open test: opened 22 of 30 sampled files; 22 opened, 8 failed, 0 looked wrong.\n  - Phone-Photos/Camera/enc-01.jpg (3800000 bytes): fails-to-open\n  - Phone-Photos/Camera/enc-02.jpg (3800000 bytes): fails-to-open\n  - Phone-Photos/Camera/enc-04.jpg (3800000 bytes): fails-to-open\n  - Phone-Photos/Camera/enc-05.jpg (3800000 bytes): fails-to-open\n  - Phone-Photos/Camera/enc-07.jpg (3800000 bytes): fails-to-open\n  - Phone-Photos/Camera/enc-08.jpg (3800000 bytes): fails-to-open\n  - Phone-Photos/Camera/enc-10.jpg (3800000 bytes): fails-to-open\n  - Phone-Photos/Camera/enc-11.jpg (3800000 bytes): fails-to-open\nNext drill due: 2026-12-12.\nReceipts: every finding above lists its file path, the expert action that produced it, and the outcome.\n"
+      },
+      {
+        "id": "v2-mixed-healthy-tier1-04",
+        "family": "per-tier-control",
+        "name": "Active-Family",
+        "expected": {
+          "flags": [
+            "single-copy"
+          ],
+          "grade": "B",
+          "verdict": null,
+          "singleCopyFiles": 8,
+          "silentStopGapDays": null
+        },
+        "actual": {
+          "flags": [
+            "single-copy"
+          ],
+          "grade": "B",
+          "verdict": null,
+          "singleCopyFiles": 8,
+          "silentStopGapDays": 2,
+          "silentStopFlag": false
+        },
+        "checks": {
+          "flagSet": true,
+          "grade": true,
+          "reportLines": true,
+          "mustNotFlag": true,
+          "singleCopyCount": true
+        },
+        "matched": true,
+        "report": "## Active-Family, grade B, owner: Family\n\n- This set exists only here: copy it to a second location you pick.\n\nFindings:\n- Vanished since last drill: first drill; nothing to compare yet.\n- Single copy: 8 irreplaceable photos (about 0 GB) exist in only one copy, starting with Active-Family/People/IMG_4001.jpg.\n- Silent stop: none; the newest file is 2 days old.\n- Open test: opened 18 of 18 sampled files; 18 opened, 0 failed, 0 looked wrong.\nNext drill due: 2026-12-12.\nReceipts: every finding above lists its file path, the expert action that produced it, and the outcome.\n"
       }
     ]
   },

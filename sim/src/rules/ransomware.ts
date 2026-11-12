@@ -28,6 +28,10 @@ export interface TellsResult {
 
 const BURST_WINDOW_DAYS = 2; // 48 hours
 const MASS_WINDOW_MINUTES = 60;
+// A never-seen extension on this many files inside the window is a tell. Set
+// at 10 so a partial or interrupted rename (well under a full-folder sweep)
+// still raises the urgent warning early, when acting first matters most.
+const RENAME_BURST_MIN = 10;
 
 function findRenameBurst(files: SynthFile[]): RenameBurst | undefined {
   const byExtension = new Map<string, SynthFile[]>();
@@ -41,7 +45,7 @@ function findRenameBurst(files: SynthFile[]): RenameBurst | undefined {
   for (const [ext, group] of byExtension) {
     const recent = group.filter((file) => file.mtimeDays <= BURST_WINDOW_DAYS);
     const history = group.length - recent.length;
-    if (recent.length >= 20 && history === 0) {
+    if (recent.length >= RENAME_BURST_MIN && history === 0) {
       const times = recent.map((file) => file.mtimeDays);
       const windowHours = (Math.max(...times) - Math.min(...times)) * 24;
       if (!found || recent.length > found.count) found = { extension: ext, count: recent.length, windowHours };
