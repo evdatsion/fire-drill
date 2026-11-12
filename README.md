@@ -1,7 +1,3 @@
-<p align="center">
-  <img src="docs/screenshots/hero.gif" alt="Fire Drill: a drill runs in Uliya chat and the Report Card builds itself" width="820">
-</p>
-
 <h1 align="center">Fire Drill</h1>
 
 <p align="center"><b>The safety net that makes it safe to let AI touch your family photos.</b><br>
@@ -20,6 +16,10 @@ A UGOS Skill for UGREEN AI NAS that finds the photos that exist only once, copie
   <a href="docs/DIAGRAMS.md">Diagrams</a> ·
   <a href="docs/results.md">Results</a> ·
   <a href="docs/design.md">Design and decisions</a>
+</p>
+
+<p align="center">
+  <img src="docs/screenshots/hero.gif" alt="Fire Drill: a drill runs in Uliya chat and the Report Card builds itself" width="820">
 </p>
 
 Entry for the **UGREEN Hackathon 2026 on AI NAS**, Open Innovation track.
@@ -124,7 +124,7 @@ Catalog line numbers for each: [docs/DIAGRAMS.md#8-ugos-capability-map](docs/DIA
 git clone https://github.com/evdatsion/fire-drill.git && cd fire-drill
 npm ci
 npm test                 # rules, one test per rule and failure path
-npm run bench            # 20-case Drill Pack on the simulator
+npm run bench            # Drill Pack (20) + blind holdout packs v1/v2, on the simulator
 npm run demo             # demo app on localhost
 node <path-to-uliya-skill-kit>/scripts/check-skill.mjs skill/backup-fire-drill
 ```
